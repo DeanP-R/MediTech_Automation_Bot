@@ -15,8 +15,13 @@ bool checkAuthorized();
 #endif
 
 void setupRFID() {
+  Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();
+  myservo.attach(SERVO_PIN);
+  myservo.write(0);
+  Serial.println("Please scan your card");
+  Serial.println();
 }
 
 bool checkAuthorized() {
