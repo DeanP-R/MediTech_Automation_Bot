@@ -1,7 +1,18 @@
-#define ln1_pin 7
-#define ln2_pin 6
-#define ln3_pin 5
-#define ln4_pin 4
-#define enableA 9
-#define enableB 3
-int mSpeed = 250;
+#pragma once
+
+// Pin definitions
+#define LEFT_TRACK_1_PIN 7
+#define LEFT_TRACK_2_PIN 6
+#define RIGHT_TRACK_1_PIN 5
+#define RIGHT_TRACK_2_PIN 4
+#define ENABLE_A 9
+#define ENABLE_B 3
+
+// Speed of the motors
+const int MOTOR_SPEED = 250;
+
+void setup_Motor_Control();
+void forward();
+void reverse();
+void turn_Right();
+void turn_Left();
