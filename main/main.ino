@@ -7,15 +7,18 @@
   Compiler        : avr-g++                                                             *
   IDE             : Arduino 2.0.3                                                       *
   Programmer      : Arduino ISP (In-System Programmer)                                  *
-  Last Updated    : 13th February 2023                                                  *
+  Last Updated    : 22nd February 2023                                                  *
 ****************************************************************************************/
 #include "RFID_handler.h"
 #include "track_movement.h"
+#include "proportional_line_following.h"
 void setup() {
-  setup_Motor_Control();
+  setupMotors();
 
 }
 
 void loop() {
-  forward();
+  moveForward(200);
+  scan();
+  updateDirection(2);
 }
