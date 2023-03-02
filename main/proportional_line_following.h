@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Arduino.h>
+
 // Define the motor pins. - Reece
 #define MOT_A1_PIN 5
 #define MOT_A2_PIN 6
@@ -10,8 +12,9 @@
 #define EN2_PIN 11
 
 void setupMotors();
-void moveForward();
-void turnRight();
-void turnLeft();
+void moveForward(int pwmSpeed);
+void turnRight(int pwmSpeed);
+void turnLeft(int pwmSpeed);
+void stop();
 void scan();
-void updateDirection();
+void updateDirection(int duration, String state);

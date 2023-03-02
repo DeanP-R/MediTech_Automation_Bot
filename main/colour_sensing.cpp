@@ -1,11 +1,8 @@
-// Set to false if using a common cathode LED. - Example colorview code
-#define commonAnode true
-
-// Our RGB -> eye-recognized gamma color. - Example colorview code
-byte gammatable[256];
+// Include the h file, 
+#include "colour_sensing.h"
 
 // Create a colour sensor object. - Example colorview code
-Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
 /*
  * This method starts the colour sensor,
@@ -28,21 +25,6 @@ void setupColourSensor() {
   pinMode(greenpin, OUTPUT);
   pinMode(bluepin, OUTPUT);
 #endif
-
-  // thanks PhilB for this gamma table!
-  // it helps convert RGB colors to what humans see
-  for (int i = 0; i < 256; i++) {
-    float x = i;
-    x /= 255;
-    x = pow(x, 2.5);
-    x *= 255;
-
-    if (commonAnode) {
-      gammatable[i] = 255 - x;
-    } else {
-      gammatable[i] = x;
-    }
-  }
 }
 
 /*
@@ -60,17 +42,5 @@ void readColourSensor(int* RGB) {
 
   RGB[0] = int(red);
   RGB[1] = int(green);
-  RGB[2] = int(blue);
-
-#if defined(ARDUINO_ARCH_ESP32)
-  ledcWrite(1, gammatable[(int)red]);
-  ledcWrite(2, gammatable[(int)green]);
-  ledcWrite(3, gammatable[(int)blue]);
-#else
-  analogWrite(redpin, gammatable[(int)red]);
-  analogWrite(greenpin, gammatable[(int)green]);
-  analogWrite(bluepin, gammatable[(int)blue]);
-#endif 
-
-  return RGB;
+  RGB[2] = int(blue); 
 }
