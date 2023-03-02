@@ -12,6 +12,8 @@
 #include "proportional_line_following.h"
 #include "colour_sensing.h"
 
+//testing init
+
 // Create an array for colour sensor values. - Reece
 int RGB[3];
 
