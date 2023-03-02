@@ -1,5 +1,5 @@
 #include "proportional_line_following.h"
-#include <Arduino.h>
+#include "colour_sensing.h"
 
 // Define the pins for the IR sensors. - Keith's Line following code 
 const int irPins[3] = {A0, A1, A2};
@@ -11,7 +11,7 @@ int irSensorDigital[3] = {0, 0, 0};
 // 500 for vinyl sheets, 
 // 800 for GRID LAB floor, 
 // 700 for kitchen floor, 
-int threshold = 700;
+int threshold = 800;
 
 // binary representation of the sensor reading: 1 when the sensor detects the line, 0 otherwise. - Keith's Line following code 
 int irSensors = B000;
@@ -75,6 +75,17 @@ void turnLeft(int pwmSpeed) {
   analogWrite(EN2_PIN, pwmSpeed);
 }
 
+void stop() {
+  // Right motor,
+  digitalWrite(MOT_A1_PIN, LOW);
+  digitalWrite(MOT_A2_PIN, LOW);
+  analogWrite(EN1_PIN, 0);
+  // Left motor, 
+  digitalWrite(MOT_B1_PIN, LOW);
+  digitalWrite(MOT_B2_PIN, LOW);
+  analogWrite(EN2_PIN, 0);
+}
+
 /*
  * This method reads all the IR sensors and converts them into a binary representation of all 3 readings. - Keith's Line following code
  */
@@ -101,9 +112,10 @@ void scan() {
  * This method reads the binary sensor reading and depending on the values within it, 
  * updates the direction the motors are turning for a specified period of time. - Reece
  */
-void updateDirection(int duration) {
-
-  switch (irSensors) {
+void updateDirection(int duration, String state) {
+  
+  if (state.equals("inTransit")) {
+    switch (irSensors) {
 
     case B000:// Not on the line,
           
@@ -126,6 +138,7 @@ void updateDirection(int duration) {
       break;
 
     case B010:// On the line, 
+      // If the line is red:
       moveForward(200);
       break;
 
@@ -140,11 +153,13 @@ void updateDirection(int duration) {
     case B111:// Perpendicular to the line, 
       turnRight(220);
       break;
+    }
   }
 
   // If the current reading indicates that the line is present: replace the last recorded reading with the current reading,
   if (irSensors != B000) {
     lastIrReading = irSensors;
   }
+
   delay(duration);
 }
