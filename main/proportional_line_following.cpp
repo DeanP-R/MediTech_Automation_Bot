@@ -2,6 +2,9 @@
 #include "colour_sensing.h"
 
 // Define the pins for the IR sensors. - Keith's Line following code 
+// A0 green channel 1
+// A1 yellow channel 2
+// A2 orange channel 3
 const int irPins[3] = {A0, A1, A2};
 
 // Define values for the IR Sensor readings. - Keith's Line following code
@@ -37,25 +40,11 @@ void setupMotors() {
  * This method makes both the left and right tracks move forward at a specified speed. - Reece
  */
 void moveForward(int pwmSpeed) {
-  // Right motor,
+  // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
   digitalWrite(MOT_A2_PIN, HIGH);
   analogWrite(EN1_PIN, pwmSpeed);
-  // Left motor, 
-  digitalWrite(MOT_B1_PIN, HIGH);
-  digitalWrite(MOT_B2_PIN, LOW);
-  analogWrite(EN2_PIN, pwmSpeed);
-}
-
-/*
- * This method reverses the right tracks so that the robot moves to the right at a specified speed. - Reece
- */
-void turnRight(int pwmSpeed) {
-  // Right motor,
-  digitalWrite(MOT_A1_PIN, HIGH);
-  digitalWrite(MOT_A2_PIN, LOW);
-  analogWrite(EN1_PIN, pwmSpeed);
-  // Left motor, 
+  // Right motor, 
   digitalWrite(MOT_B1_PIN, HIGH);
   digitalWrite(MOT_B2_PIN, LOW);
   analogWrite(EN2_PIN, pwmSpeed);
@@ -65,22 +54,36 @@ void turnRight(int pwmSpeed) {
  * This method reverses the left tracks so that the robot moves to the left at a specified speed. - Reece
  */
 void turnLeft(int pwmSpeed) {
-  // Right motor,
+  // Left motor,
+  digitalWrite(MOT_A1_PIN, HIGH);
+  digitalWrite(MOT_A2_PIN, LOW);
+  analogWrite(EN1_PIN, pwmSpeed);
+  // Right motor, 
+  digitalWrite(MOT_B1_PIN, HIGH);
+  digitalWrite(MOT_B2_PIN, LOW);
+  analogWrite(EN2_PIN, pwmSpeed);
+}
+
+/*
+ * This method reverses the right tracks so that the robot moves to the right at a specified speed. - Reece
+ */
+void turnRight(int pwmSpeed) {
+  // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
   digitalWrite(MOT_A2_PIN, HIGH);
   analogWrite(EN1_PIN, pwmSpeed);
-  // Left motor, 
+  // Right motor, 
   digitalWrite(MOT_B1_PIN, LOW);
   digitalWrite(MOT_B2_PIN, HIGH);
   analogWrite(EN2_PIN, pwmSpeed);
 }
 
 void stop() {
-  // Right motor,
+  // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
   digitalWrite(MOT_A2_PIN, LOW);
   analogWrite(EN1_PIN, 0);
-  // Left motor, 
+  // Right motor, 
   digitalWrite(MOT_B1_PIN, LOW);
   digitalWrite(MOT_B2_PIN, LOW);
   analogWrite(EN2_PIN, 0);
@@ -106,6 +109,13 @@ void scan() {
     int b = 2 - i;
     irSensors = irSensors + (irSensorDigital[i] << b);
   }
+
+  // Serial.print("L: ");
+  // Serial.print(analogRead(A0));
+  // Serial.print(" C: ");
+  // Serial.print(analogRead(A1));
+  // Serial.print(" R: ");
+  // Serial.println(analogRead(A2));
 }
 
 /*
