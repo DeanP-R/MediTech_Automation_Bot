@@ -23,32 +23,37 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
+  Serial1.begin(9600);
   //setupMotors(); 
-  setupLasers();
-  setupColourSensor();
+  //setupLasers();
+  //setupColourSensor();
 }
 
 void loop() {
-  readColourSensor(RGB); 
-  Serial.print("Colour Sensor: ");
-  Serial.print("R: ");
-  Serial.print(RGB[0]);
-  Serial.print(" G: ");
-  Serial.print(RGB[1]);
-  Serial.print(" B: ");
-  Serial.print(RGB[2]);
-  Serial.print(", ");
+  // readColourSensor(RGB); 
+  // Serial.print("Colour Sensor: ");
+  // Serial.print("R: ");
+  // Serial.print(RGB[0]);
+  // Serial.print(" G: ");
+  // Serial.print(RGB[1]);
+  // Serial.print(" B: ");
+  // Serial.print(RGB[2]);
+  // Serial.print(", ");
 
-  readLaserSensors(LCR);
-  Serial.print("Lasers: ");
-  Serial.print("L: ");
-  Serial.print(LCR[0]);
-  Serial.print(" C: ");
-  Serial.print(LCR[1]);
-  Serial.print(" R: ");
-  Serial.print(LCR[2]);
-  Serial.println(" ");
+  // readLaserSensors(LCR);
+  // Serial.print("Lasers: ");
+  // Serial.print("L: ");
+  // Serial.print(LCR[0]);
+  // Serial.print(" C: ");
+  // Serial.print(LCR[1]);
+  // Serial.print(" R: ");
+  // Serial.print(LCR[2]);
+  // Serial.println(" ");
 
+  while(Serial1.available()>0){
+    //char uno_data = Serial1.read();
+    Serial.println(Serial1.read());
+  }
   // if (RGB[0] > 140) {
   //   stop();
   //   state = "stopped";

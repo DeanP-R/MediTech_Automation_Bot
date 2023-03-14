@@ -46,7 +46,7 @@ void setupLasers() {
     digitalWrite(SHT_RIGHT, LOW);
 
     // Initing LOX1,
-    if (!leftLaser.setAddress(LEFT_ADDRESS)) {
+    if (!leftLaser.begin(LEFT_ADDRESS)) {
       while (1);
     }
     delay(10);
@@ -56,7 +56,7 @@ void setupLasers() {
     delay(10);
 
     // Initing LOX2,
-    if (!centerLaser.setAddress(CENTER_ADDRESS)) {
+    if (!centerLaser.begin(CENTER_ADDRESS)) {
       while (1);
     }
 
@@ -65,7 +65,7 @@ void setupLasers() {
     delay(10);
 
     // Initing LOX3,
-    if (!rightLaser.setAddress(RIGHT_ADDRESS)) {
+    if (!rightLaser.begin(RIGHT_ADDRESS)) {
       while (1);
     }
 }
