@@ -17,7 +17,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 Servo myServo;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
-void setup() {
+void lockSetup() {
   Serial.begin(9600);
   SPI.begin();
   mfrc522.PCD_Init();
@@ -32,7 +32,7 @@ void setup() {
   lcd.print("Scan RFID tag");  
 } 
 
-void loop() {
+void lock_op() {
   
   if (mfrc522.PICC_IsNewCardPresent()) {
     if (mfrc522.PICC_ReadCardSerial()) {      
@@ -62,6 +62,7 @@ void loop() {
           }
           else {
             Serial.println("PIN incorrect. Access denied.");
+            lcd.setCursor(0,0);
             lcd.print("Incorrect PIN");
             delay(3000);
           }

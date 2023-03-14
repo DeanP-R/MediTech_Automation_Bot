@@ -12,6 +12,7 @@
 #include "proportional_line_following.h"
 #include "colour_sensing.h"
 #include "object_avoidance.h"
+#include "lock.h"
 
 // Create an array for colour sensor values. - Reece
 int RGB[3];
@@ -27,9 +28,11 @@ void setup() {
   //setupMotors(); 
   //setupLasers();
   //setupColourSensor();
+  lockSetup();
 }
 
 void loop() {
+  lock_op();
   // readColourSensor(RGB); 
   // Serial.print("Colour Sensor: ");
   // Serial.print("R: ");
@@ -50,9 +53,9 @@ void loop() {
   // Serial.print(LCR[2]);
   // Serial.println(" ");
 
-  while(Serial1.available()>0){
-    //char uno_data = Serial1.read();
-    Serial.println(Serial1.read());
+  // while(Serial1.available()>0){
+  //   //char uno_data = Serial1.read();
+  //   Serial.println(Serial1.read());
   }
   // if (RGB[0] > 140) {
   //   stop();
@@ -76,4 +79,3 @@ void loop() {
   
   // scan();
   // updateDirection(2, state);
-}

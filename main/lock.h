@@ -26,7 +26,7 @@ extern Keypad keypad;
 extern Servo myServo;
 extern LiquidCrystal_I2C lcd;
 
-void setup();
-void loop();
+void lockSetup();
+void lock_op();
 String readKeypad();
 
