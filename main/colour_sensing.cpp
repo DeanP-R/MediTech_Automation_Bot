@@ -10,7 +10,7 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725();
  * Then creates a gamma table to convert the RGB data into observable human colours. - Example colorview code
  */
 void setupColourSensor() {
-  tcs.begin();
+  tcs.begin(0x29);
   
   // use these three pins to drive an LED
 #if defined(ARDUINO_ARCH_ESP32)
