@@ -148,7 +148,7 @@ void updateDirection(int duration, String state) {
       break;
 
     case B010:// On the line, 
-      // If the line is red:
+      // If the line is red: 
       moveForward(200);
       break;
 
