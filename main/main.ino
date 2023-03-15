@@ -23,12 +23,16 @@ void setup() {
   // Serial.begin(9600);
   //Serial1.begin(9600);
   setupMotors(); 
-  //setupLasers();
+  setupLasers();
   //setupColourSensor();
   //lockSetup();
 }
 
 void loop() {
+  avoidance();
+  moveForward(255);
+  scan();
+  updateDirection(2, state);
   //lock_op();
   // readColourSensor(RGB); 
   // Serial.print("Colour Sensor: ");
@@ -72,10 +76,6 @@ void loop() {
   // } else {
   // state = "inTransit";
   // }
-  
-  moveForward(255);
-  scan();
-  updateDirection(2, state);
 }
 
 /*
