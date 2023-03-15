@@ -24,15 +24,15 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
-  Serial1.begin(9600);
-  //setupMotors(); 
-  //setupLasers();
+  //Serial1.begin(9600);
+  setupMotors(); 
+  setupLasers();
   //setupColourSensor();
-  lockSetup();
+  //lockSetup();
 }
 
 void loop() {
-  lock_op();
+  //lock_op();
   // readColourSensor(RGB); 
   // Serial.print("Colour Sensor: ");
   // Serial.print("R: ");
@@ -43,20 +43,20 @@ void loop() {
   // Serial.print(RGB[2]);
   // Serial.print(", ");
 
-  // readLaserSensors(LCR);
-  // Serial.print("Lasers: ");
-  // Serial.print("L: ");
-  // Serial.print(LCR[0]);
-  // Serial.print(" C: ");
-  // Serial.print(LCR[1]);
-  // Serial.print(" R: ");
-  // Serial.print(LCR[2]);
-  // Serial.println(" ");
+  readLaserSensors(LCR);
+  Serial.print("Lasers: ");
+  Serial.print("L: ");
+  Serial.print(LCR[0]);
+  Serial.print(" C: ");
+  Serial.print(LCR[1]);
+  Serial.print(" R: ");
+  Serial.print(LCR[2]);
+  Serial.println(" ");
 
   // while(Serial1.available()>0){
   //   //char uno_data = Serial1.read();
   //   Serial.println(Serial1.read());
-  }
+
   // if (RGB[0] > 140) {
   //   stop();
   //   state = "stopped";
@@ -73,9 +73,10 @@ void loop() {
   //   }
 
   // } else {
-  //   moveForward(200);
-  //   state = "inTransit";
+  // state = "inTransit";
   // }
   
-  // scan();
-  // updateDirection(2, state);
+  moveForward(200);
+  scan();
+  updateDirection(2, state);
+}
