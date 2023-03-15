@@ -146,7 +146,7 @@ void avoidance(){
   //Update TOF sensor values
   readLaserSensors();
   //Consideration distance - distance at which Fred will perform evasive maneuver
-  if(LCR[0] < 500 || LCR[1] < 500 || LCR[2] < 500){
+  if(LCR[0] < 200 || LCR[1] < 200 || LCR[2] < 200){
     //Calculate differnce between left and right sensors
     int leftToRightSensor = LCR[0] - LCR[2];
     //If difference is +ve - obstacle is on the right - turn to left
