@@ -1,13 +1,13 @@
 /****************************************************************************************
   File Name       : MediTech Automation Control                                         *
-  Version         : 0.2.0                                                               *
+  Version         : 0.3.0                                                               *
   Description     : Main code for B39VS - System Project                                *
   Author          : Dean Rowlett & Reece Alexander                                      *
   Target          : Arduino Mega                                                        *
   Compiler        : avr-g++                                                             *
   IDE             : Arduino 2.0.3                                                       *
   Programmer      : Arduino ISP (In-System Programmer)                                  *
-  Last Updated    : 13th March 2023                                                     *
+  Last Updated    : 15th March 2023                                                     *
 ****************************************************************************************/
 #include "proportional_line_following.h"
 #include "colour_sensing.h"
@@ -17,16 +17,13 @@
 // Create an array for colour sensor values. - Reece
 int RGB[3];
 
-// Create an array for the laser sensor values. - Reece
-int LCR[3];
-
 String state = "inTransit";
 
 void setup() {
-  Serial.begin(9600);
+  // Serial.begin(9600);
   //Serial1.begin(9600);
   setupMotors(); 
-  setupLasers();
+  //setupLasers();
   //setupColourSensor();
   //lockSetup();
 }
@@ -43,15 +40,15 @@ void loop() {
   // Serial.print(RGB[2]);
   // Serial.print(", ");
 
-  readLaserSensors(LCR);
-  Serial.print("Lasers: ");
-  Serial.print("L: ");
-  Serial.print(LCR[0]);
-  Serial.print(" C: ");
-  Serial.print(LCR[1]);
-  Serial.print(" R: ");
-  Serial.print(LCR[2]);
-  Serial.println(" ");
+  // readLaserSensors(LCR);
+  // Serial.print("Lasers: ");
+  // Serial.print("L: ");
+  // Serial.print(LCR[0]);
+  // Serial.print(" C: ");
+  // Serial.print(LCR[1]);
+  // Serial.print(" R: ");
+  // Serial.print(LCR[2]);
+  // Serial.println(" ");
 
   // while(Serial1.available()>0){
   //   //char uno_data = Serial1.read();
@@ -76,7 +73,11 @@ void loop() {
   // state = "inTransit";
   // }
   
-  moveForward(200);
+  moveForward(255);
   scan();
   updateDirection(2, state);
 }
+
+/*
+
+*/
