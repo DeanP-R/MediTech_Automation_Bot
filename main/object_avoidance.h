@@ -5,3 +5,4 @@ void setupLasers();
 void readLaserSensors(int* LCR);
 void swerveLeft();
 void swerveRight();
+void avoidance();
