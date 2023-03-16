@@ -13,26 +13,33 @@
 #include "colour_sensing.h"
 #include "object_avoidance.h"
 #include "lock.h"
-
+#include "multiplexer.h"
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 // Create an array for colour sensor values. - Reece
 int RGB[3];
+int channel = 0;  // default channel on the multiplexer
+
+LiquidCrystal_I2C lcd1(0x27, 20, 4);
 
 String state = "inTransit";
 
 void setup() {
-  // Serial.begin(9600);
+  Serial.begin(9600);
   //Serial1.begin(9600);
-  setupMotors(); 
-  setupLasers();
+  // setupMotors(); 
+  // setupLasers();
   //setupColourSensor();
   //lockSetup();
+  lcd1.init();
+  lcd1.backlight(); 
 }
 
 void loop() {
-  avoidance();
-  moveForward(255);
-  scan();
-  updateDirection(2, state);
+  // avoidance();
+  // moveForward(255);
+  // scan();
+  // updateDirection(2, state);
   //lock_op();
   // readColourSensor(RGB); 
   // Serial.print("Colour Sensor: ");
@@ -76,6 +83,16 @@ void loop() {
   // } else {
   // state = "inTransit";
   // }
+    // select the desired channel on the multiplexer
+  TCA9548A(channel);
+
+  // print to the LCD screen
+  lcd.setCursor(0, 0);  // set the cursor to the first position on the first line
+  lcd.print("bAlLz!");  // print the message
+
+  delay(1000);  // wait for a second before updating the display
+  // lcd1.setCursor(0,0);
+  // lcd1.print("BAllz"); 
 }
 
 /*
