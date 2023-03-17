@@ -70,34 +70,34 @@ void setupLasers() {
 // Method to read the laser sensors and save the data into an array
 void readLaserSensors() {
   // Read the left sensor and save the data into leftValue
-  Serial.println("Selecting channel 0");
+  //Serial.println("Selecting channel 0");
   TCA9548A(0);
-  Serial.println("Selected channel 0");
+  //Serial.println("Selected channel 0");
   if (leftLaser.begin(LEFT_ADDRESS)) {
     leftLaser.rangingTest(&leftValue, false);
     LCR[0] = leftValue.RangeMilliMeter;
     Serial.print("Left Value: ");
-    Serial.println(LCR[0]);
+    Serial.print(LCR[0]);
   }
 
   // Read the center sensor and save the data into centerValue
-  Serial.println("Selecting channel 1");
+  //Serial.println("Selecting channel 1");
   TCA9548A(1);
-  Serial.println("Selected channel 1");
+  //Serial.println("Selected channel 1");
   if (centerLaser.begin(RIGHT_ADDRESS)) {
     centerLaser.rangingTest(&centerValue, false);
     LCR[1] = centerValue.RangeMilliMeter;
-    Serial.print("Center value: ");
-    Serial.println(LCR[1]);
+    Serial.print(" | Center value: ");
+    Serial.print(LCR[1]);
   }
   // Read the right sensor and save the data into rightValue
-  Serial.println("Selecting channel 2");
+  //Serial.println("Selecting channel 2");
   TCA9548A(2);
-  Serial.println("Selected channel 2");
+  //Serial.println("Selected channel 2");
   if (rightLaser.begin(RIGHT_ADDRESS)) {
     rightLaser.rangingTest(&rightValue, false);
     LCR[2] = rightValue.RangeMilliMeter;
-    Serial.print("Right Value:" );
+    Serial.print(" | Right Value:" );
     Serial.println(LCR[2]);
   }
   // Convert the range data into millimeters and save each sensor's distance value into the corresponding index of the passed array

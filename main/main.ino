@@ -53,7 +53,7 @@ void loop() {
   // Serial.print(" B: ");
   // Serial.print(RGB[2]);
   // Serial.print(", ");
-  Serial.println("enter loop");
+  //Serial.println("enter loop");
   readLaserSensors();
   // while(Serial1.available()>0){
   //   //char uno_data = Serial1.read();
