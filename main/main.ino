@@ -36,6 +36,7 @@ void setup() {
   //lockSetup();
   // lcd1.init();
   // lcd1.backlight(); 
+  setupLasers();
 }
 
 void loop() {
