@@ -18,21 +18,24 @@
 #include <LiquidCrystal_I2C.h>
 // Create an array for colour sensor values. - Reece
 int RGB[3];
-int channel = 0;  // default channel on the multiplexer
+int bus = 0;  // default channel on the multiplexer
 
 LiquidCrystal_I2C lcd1(0x27, 20, 4);
-
+Adafruit_VL53L0X laser = Adafruit_VL53L0X();
 String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
+  //setupLasers();
   //Serial1.begin(9600);
-  // setupMotors(); 
-  // setupLasers();
+  //setupMotors(); 
+  // setupLaserTest(laser, 38, 1);
+  // setupLaserTest(laser, 39, 2);
+  // setupLaserTest(laser, 40, 3);
   //setupColourSensor();
   //lockSetup();
-  lcd1.init();
-  lcd1.backlight(); 
+  // lcd1.init();
+  // lcd1.backlight(); 
 }
 
 void loop() {
@@ -50,17 +53,8 @@ void loop() {
   // Serial.print(" B: ");
   // Serial.print(RGB[2]);
   // Serial.print(", ");
-
-  // readLaserSensors(LCR);
-  // Serial.print("Lasers: ");
-  // Serial.print("L: ");
-  // Serial.print(LCR[0]);
-  // Serial.print(" C: ");
-  // Serial.print(LCR[1]);
-  // Serial.print(" R: ");
-  // Serial.print(LCR[2]);
-  // Serial.println(" ");
-
+  Serial.println("enter loop");
+  readLaserSensors();
   // while(Serial1.available()>0){
   //   //char uno_data = Serial1.read();
   //   Serial.println(Serial1.read());
@@ -84,13 +78,13 @@ void loop() {
   // state = "inTransit";
   // }
     // select the desired channel on the multiplexer
-  TCA9548A(channel);
+  // TCA9548A(channel);
 
-  // print to the LCD screen
-  lcd.setCursor(0, 0);  // set the cursor to the first position on the first line
-  lcd.print("bAlLz!");  // print the message
+  // // print to the LCD screen
+  // lcd.setCursor(0, 0);  // set the cursor to the first position on the first line
+  // lcd.print("bAlLz!");  // print the message
 
-  delay(1000);  // wait for a second before updating the display
+  // delay(1000);  // wait for a second before updating the display
   // lcd1.setCursor(0,0);
   // lcd1.print("BAllz"); 
 }
