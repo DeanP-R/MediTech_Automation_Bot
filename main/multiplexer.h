@@ -1,4 +1,4 @@
 #pragma once
 
-void TCA9548A(uint8_t bus);
+void TCA9548A(int bus);
 
