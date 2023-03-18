@@ -48,7 +48,7 @@ void readLaserSensors() {
   TCA9548A(0);
   leftLaser.rangingTest(&leftValue, false);
   LCR[0] = leftValue.RangeMilliMeter;
-  Serial.print(" Left Reading: ");
+  Serial.print("Left Reading: ");
   Serial.print(LCR[0]);
 
   // Read the center sensor and save the data into centerValue
@@ -128,6 +128,7 @@ void swerveLeft() {
 }
 
 void avoidance() {
+  
   //Update TOF sensor values
   readLaserSensors();
   //Consideration distance - distance at which Fred will perform evasive maneuver
