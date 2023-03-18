@@ -109,13 +109,6 @@ void scan() {
     int b = 2 - i;
     irSensors = irSensors + (irSensorDigital[i] << b);
   }
-
-  // Serial.print("L: ");
-  // Serial.print(analogRead(A0));
-  // Serial.print(" C: ");
-  // Serial.print(analogRead(A1));
-  // Serial.print(" R: ");
-  // Serial.println(analogRead(A2));
 }
 
 /*
