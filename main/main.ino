@@ -25,26 +25,21 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
-  setupLasers();
+  // setupLasers();
   setupMotors();
-  setupColourSensor();
-  //lockSetup();
-  //lcd1.init();
-  //lcd1.backlight(); 
+  Serial.print("setup complete");
+  // setupColourSensor();
 }
 
 void loop() {
-  // avoidance();
-  // moveForward(255);
+  //avoidance();
+  moveForward(255);
   // scan();
   // updateDirection(2, state);
   //lock_op();
-  readLaserSensors();
-  readColourSensor();
-  // select the desired channel on the multiplexer
-  // TCA9548A(channel);
+  // readLaserSensors();
+  // readColourSensor();
 }
-
 /*
 
 */
