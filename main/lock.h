@@ -8,7 +8,7 @@
 #include <MFRC522.h>
 #include <Keypad.h>
 #include <Servo.h>
-
+#include "multiplexer.h"
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
@@ -16,6 +16,7 @@
 #define RST_PIN 49      //RST pin of RFID
 
 extern MFRC522 mfrc522;
+extern bool authorised;
 
 const byte ROWS = 4;
 const byte COLS = 4;
