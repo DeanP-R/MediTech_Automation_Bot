@@ -25,20 +25,20 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
-  // setupLasers();
-  setupMotors();
-  Serial.print("setup complete");
-  // setupColourSensor();
+  //setupLasers();
+  //setupMotors();
+  setupColourSensor();
+  Serial.println("setup complete these nuts ya bam");
 }
 
 void loop() {
   //avoidance();
-  moveForward(255);
+  //moveForward(255);
   // scan();
   // updateDirection(2, state);
   //lock_op();
-  // readLaserSensors();
-  // readColourSensor();
+  //readLaserSensors();
+  readColourSensor();
 }
 /*
 

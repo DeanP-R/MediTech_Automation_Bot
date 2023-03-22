@@ -1,3 +1,4 @@
+#include "HardwareSerial.h"
 // Include the colour sensing header file
 #include "colour_sensing.h"
 
@@ -15,24 +16,14 @@ int RGB[3];
 void setupColourSensor() {
   // Configure the TCA9548A multiplexer to use channel 4
   TCA9548A(3);
-  // Initialize the colour sensor with the I2C address 0x29
-  tcs.begin(0x29);
+  Serial.print("channel selected");
 
-  // Use the following pins to drive an LED
-  // On ESP32 boards, use the LEDC interface to control the pins
-#if defined(ARDUINO_ARCH_ESP32)
-  ledcAttachPin(redpin, 1);
-  ledcSetup(1, 12000, 8);
-  ledcAttachPin(greenpin, 2);
-  ledcSetup(2, 12000, 8);
-  ledcAttachPin(bluepin, 3);
-  ledcSetup(3, 12000, 8);
-  // On other boards, set the pin modes to OUTPUT
-#else
-  pinMode(redpin, OUTPUT);
-  pinMode(greenpin, OUTPUT);
-  pinMode(bluepin, OUTPUT);
-#endif
+  tcs.begin(0x29);
+  // Initialize the colour sensor with the I2C address 0x29
+  while(!tcs.begin(0x29)){
+    tcs.begin(0x29);
+    Serial.println("trying :(");
+  }
 }
 
 /*
@@ -55,5 +46,5 @@ void readColourSensor() {
   RGB[2] = int(blue); 
 
   // Print the RGB values to the serial port
-  Serial.print("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
+  Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
