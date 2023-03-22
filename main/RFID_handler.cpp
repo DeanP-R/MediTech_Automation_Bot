@@ -61,13 +61,13 @@ bool check_user() {
   // Compare the card's serial number to a predefined value
   if (content.substring(1) == "F4 11 4F 60") {
     // If the card's serial number matches the predefined value and the access is not authorised
-    if (!authorised) {
+    if (!authorised1) {
       // Print a message to the serial monitor
       Serial.println("Authorized access");
       // Move the servo to 180 degrees
       myservo.write(180);
       // Set the authorised variable to true
-      authorised = true;
+      authorised1 = true;
       // Wait for 3 seconds
       delay(3000);
     }
@@ -78,7 +78,7 @@ bool check_user() {
       // Move the servo to 0 degrees
       myservo.write(0);
       // Set the authorised variable to false
-      authorised = false;
+      authorised1 = false;
       // Wait for 3 seconds
       delay(3000);
     }
@@ -89,7 +89,7 @@ bool check_user() {
     // Move the servo to 0 degrees
     myservo.write(0);
     // Set the authorised variable to false
-    authorised = false;
+    authorised1 = false;
     // Wait
     delay(3000);
   }

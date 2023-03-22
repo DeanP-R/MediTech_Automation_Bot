@@ -14,7 +14,7 @@
 
 extern Servo myservo;
 extern MFRC522 mfrc522;
-extern bool authorised;
+extern bool authorised1;
 
 void rfid_setup();
 bool check_user();
