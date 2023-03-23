@@ -12,7 +12,7 @@
 
 //test these nuts ya bam
 
-
+#include "speakers.h"
 #include "proportional_line_following.h"
 #include "colour_sensing.h"
 #include "object_avoidance.h"
@@ -29,23 +29,23 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
-  //setupLasers();
+  // setupLasers();
   //setupMotors();
   //setupColourSensor();
-  //Serial.println("setup complete these nuts ya bam");
-  //lockSetup();
+  lockSetup();
+  Serial.println("setup complete these nuts ya bam");
   
 }
 
 void loop() {
   //avoidance();
-  //moveForward(255);
+  // moveForward(255);
   // scan();
   // updateDirection(2, state);
-  //lock_op();
-  //readLaserSensors();
-  readColourSensor();
   lock_op();
+  // readLaserSensors();
+  //readColourSensor();
+  //runSpeaker();
 }
 /*
 
