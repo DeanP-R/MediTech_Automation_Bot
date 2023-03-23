@@ -32,9 +32,11 @@ void setup() {
   // setupLasers();
   //setupMotors();
   //setupColourSensor();
-  lockSetup();
+  //lockSetup();
   Serial.println("setup complete these nuts ya bam");
-  
+  pinMode(22, OUTPUT);
+  pinMode(23, OUTPUT);
+  pinMode(24, OUTPUT);
 }
 
 void loop() {
@@ -42,10 +44,20 @@ void loop() {
   // moveForward(255);
   // scan();
   // updateDirection(2, state);
-  lock_op();
+  //lock_op();
   // readLaserSensors();
   //readColourSensor();
   //runSpeaker();
+  digitalWrite(22, HIGH);
+  delay(500);
+  digitalWrite(22, LOW);
+  digitalWrite(23, HIGH);
+  delay(500);
+  digitalWrite(23, LOW);
+  digitalWrite(24, HIGH);
+  delay(500);
+  digitalWrite(24, LOW);
+
 }
 /*
 

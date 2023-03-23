@@ -1,8 +1,7 @@
 #include "Arduino.h"
-
 #include "lock.h"
 
-MFRC522 mfrc522(SS_PIN, RST_PIN);
+MFRC522 mfrc522(53, RST_PIN);
 bool authorised = false;
 
 char keys[ROWS][COLS] = {
@@ -26,16 +25,16 @@ void lockSetup() {
   //SPI.begin();
   mfrc522.PCD_Init();
   myServo.attach(11);
-  Serial.println("RFID reading UID");
+  Serial.println("ballz RFID reading UID");
   authorised = false;
   myServo.write(0);
-
   // Channel 5?
   TCA9548A(4);  
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
-  lcd.print("Scan RFID tag");
+  lcd.print("ballz Scan RFID tag");
+
 }
 
 void lock_op() {
@@ -58,7 +57,7 @@ TCA9548A(5);
               Serial.println("Please enter the PIN");  // ask for PIN and check if it is correct
               lcd.print("Enter the PIN: ");
               String pin = readKeypad();
-              if (pin == "1234") {
+              if (pin == "123A") {
                 Serial.println("PIN correct. Unlocking servo.");
                 lcd.clear();
                 lcd.print("Correct PIN");
