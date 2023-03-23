@@ -20,14 +20,18 @@ Servo myServo;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void lockSetup() {
-  TCA9548A(4);
+  // Channel 6?
+  TCA9548A(5);
   //Serial.begin(9600);
   //SPI.begin();
-  //mfrc522.PCD_Init();
+  mfrc522.PCD_Init();
   myServo.attach(11);
   Serial.println("RFID reading UID");
   authorised = false;
   myServo.write(0);
+
+  // Channel 5?
+  TCA9548A(4);  
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -35,7 +39,7 @@ void lockSetup() {
 }
 
 void lock_op() {
-TCA9548A(4);
+TCA9548A(5);
     if (mfrc522.PICC_IsNewCardPresent()) {
       if (mfrc522.PICC_ReadCardSerial()) {
         if (mfrc522.uid.size == 4) {
@@ -45,28 +49,29 @@ TCA9548A(4);
 
           if (memcmp(expectedUID, tagUID, 4) == 0) {  // compare expectedUID to scanned UID
             if(!authorised){
-            Serial.println("Authorized tag scanned.");
-            lcd.clear();
-            lcd.print("Correct tag");
-            delay(3000);
-            lcd.clear();
-            Serial.println("Please enter the PIN");  // ask for PIN and check if it is correct
-            lcd.print("Enter the PIN: ");
-            String pin = readKeypad();
-            if (pin == "1234") {
-              Serial.println("PIN correct. Unlocking servo.");
+              Serial.println("Authorized tag scanned.");
+              TCA9548A(4);
               lcd.clear();
-              lcd.print("Correct PIN");
-              authorised = true;
-              myServo.write(90);
-              delay(5000);
-            } else {
-              Serial.println("PIN incorrect. Access denied.");
-              lcd.setCursor(0, 0);
-              lcd.print("Incorrect PIN");
-              authorised = false;
+              lcd.print("Correct tag");
               delay(3000);
-            }
+              lcd.clear();
+              Serial.println("Please enter the PIN");  // ask for PIN and check if it is correct
+              lcd.print("Enter the PIN: ");
+              String pin = readKeypad();
+              if (pin == "1234") {
+                Serial.println("PIN correct. Unlocking servo.");
+                lcd.clear();
+                lcd.print("Correct PIN");
+                authorised = true;
+                myServo.write(90);
+                delay(5000);
+              } else {
+                Serial.println("PIN incorrect. Access denied.");
+                lcd.setCursor(0, 0);
+                lcd.print("Incorrect PIN");
+                authorised = false;
+                delay(3000);
+              }
             }
             else {
               lcd.print("Storage Locked");
@@ -81,6 +86,7 @@ TCA9548A(4);
             myServo.write(0);
             authorised = false;
           }
+        TCA9548A(5);
         mfrc522.PICC_HaltA();
         mfrc522.PCD_StopCrypto1();
       }
