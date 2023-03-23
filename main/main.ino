@@ -1,13 +1,13 @@
 /****************************************************************************************
   File Name       : MediTech Automation Control                                         *
-  Version         : 0.3.0                                                               *
+  Version         : 0.3.1                                                               *
   Description     : Main code for B39VS - System Project                                *
   Author          : Dean Rowlett & Reece Alexander                                      *
   Target          : Arduino Mega                                                        *
   Compiler        : avr-g++                                                             *
   IDE             : Arduino 2.0.3                                                       *
   Programmer      : Arduino ISP (In-System Programmer)                                  *
-  Last Updated    : 15th March 2023                                                     *
+  Last Updated    : 23th March 2023                                                     *
 ****************************************************************************************/
 
 //test these nuts ya bam
