@@ -1,3 +1,4 @@
+#include "Arduino.h"
 
 #include "lock.h"
 
@@ -20,14 +21,13 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void lockSetup() {
   TCA9548A(4);
-  Serial.begin(9600);
+  //Serial.begin(9600);
   //SPI.begin();
   //mfrc522.PCD_Init();
-  //myServo.attach(11);
+  myServo.attach(11);
   Serial.println("RFID reading UID");
   authorised = false;
   myServo.write(0);
-
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);

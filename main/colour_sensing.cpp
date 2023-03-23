@@ -4,7 +4,6 @@
 
 // Create an object of the Adafruit_TCS34725 class for the colour sensor
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
-
 // Create an array to store the RGB values read from the colour sensor
 int RGB[3];
 
@@ -14,16 +13,11 @@ int RGB[3];
  * and sets up the pins used to control an LED. 
  */
 void setupColourSensor() {
-  // Configure the TCA9548A multiplexer to use channel 4
+  // Configure the TCA9548A multiplexer to use the fourth channel
   TCA9548A(3);
-  Serial.print("channel selected");
-
-  tcs.begin(0x29);
   // Initialize the colour sensor with the I2C address 0x29
-  while(!tcs.begin(0x29)){
-    tcs.begin(0x29);
-    Serial.println("trying :(");
-  }
+  tcs.begin(0x29);
+  delay(300);
 }
 
 /*

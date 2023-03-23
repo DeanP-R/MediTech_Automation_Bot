@@ -31,8 +31,10 @@ void setup() {
   Serial.begin(9600);
   //setupLasers();
   //setupMotors();
-  setupColourSensor();
-  Serial.println("setup complete these nuts ya bam");
+  //setupColourSensor();
+  //Serial.println("setup complete these nuts ya bam");
+  //lockSetup();
+  
 }
 
 void loop() {
@@ -43,6 +45,7 @@ void loop() {
   //lock_op();
   //readLaserSensors();
   readColourSensor();
+  lock_op();
 }
 /*
 
