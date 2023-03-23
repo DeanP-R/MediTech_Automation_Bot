@@ -8,9 +8,9 @@ Adafruit_VL53L0X centerLaser = Adafruit_VL53L0X();
 Adafruit_VL53L0X rightLaser = Adafruit_VL53L0X();
 
 // Set the I2C addresses for the laser sensors
-#define LEFT_ADDRESS 0x29
-#define CENTER_ADDRESS 0x2A
-#define RIGHT_ADDRESS 0x2B
+#define LEFT_ADDRESS 0x30
+#define CENTER_ADDRESS 0x31
+#define RIGHT_ADDRESS 0x32
 
 
 // Set the pins for the laser sensor shutdown
@@ -34,15 +34,15 @@ void setupLasers() {
   // Initialize the laser sensors
   TCA9548A(0);
   leftLaser.begin(LEFT_ADDRESS);
-  delay(300);
+  delay(400);
 
   TCA9548A(1);
   centerLaser.begin(CENTER_ADDRESS);
-  delay(300);
-  
+  delay(400);
+
   TCA9548A(2);
   rightLaser.begin(RIGHT_ADDRESS);
-  delay(300);
+  delay(400);
 }
 // Method to read the laser sensors and save the data into an array
 
