@@ -27,6 +27,8 @@ int bus = 0;  // default channel on the multiplexer
 // Adafruit_VL53L0X laser = Adafruit_VL53L0X();
 String state = "inTransit";
 
+String targetWard = "Home";
+
 void setup() {
   Serial.begin(9600);
   lockSetup(); 
@@ -41,7 +43,7 @@ void loop() {
   // readLaserSensors();
   // readColourSensor();
   // runSpeaker();
-  lock_op();
+  lock_op(targetWard);
 
   // Possible final loop() layout ------------------
   
