@@ -13,7 +13,7 @@
 #include <Wire.h>
 
 #define SS_PIN 53       //SDA pin of RFID
-#define RST_PIN 52      //RST pin of RFID
+#define RST_PIN 8      //RST pin of RFID
 
 extern bool authorised;
 

@@ -29,11 +29,11 @@ String state = "inTransit";
 
 void setup() {
   Serial.begin(9600);
-  lockSetup();
+  lockSetup(); 
   // setupMotors();
   // setupLasers();
   // setupColourSensor();
-  Serial.println("setup complete these nuts ya bam");
+  // Serial.println("setup complete these nuts ya bam");
 }
 
 void loop() {
