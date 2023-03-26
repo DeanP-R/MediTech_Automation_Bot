@@ -18,13 +18,13 @@
 #include "object_avoidance.h"
 #include "lock.h"
 #include "multiplexer.h"
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+// #include <Wire.h>
+// #include <LiquidCrystal_I2C.h>
 
 int bus = 0;  // default channel on the multiplexer
 
-LiquidCrystal_I2C lcd1(0x27, 20, 4);
-Adafruit_VL53L0X laser = Adafruit_VL53L0X();
+// LiquidCrystal_I2C lcd1(0x27, 20, 4);
+// Adafruit_VL53L0X laser = Adafruit_VL53L0X();
 String state = "inTransit";
 
 void setup() {
@@ -36,7 +36,7 @@ void setup() {
   //setupMotors();
   //setupColourSensor();
   lockSetup();
-  Serial.println("setup complete these nuts ya bam");
+  // Serial.println("setup complete these nuts ya bam");
 }
 
 void loop() {
@@ -44,12 +44,20 @@ void loop() {
   // moveForward(255);
   // scan();
   // updateDirection(2, state);
-  //lock_op();
+  lock_op();
   // readLaserSensors();
   //readColourSensor();
   //runSpeaker();
-  lock_op();
+  // lock_op();
+  // lcd1.clear();
+  // lcd1.setCursor(0, 0);
+  // lcd1.print("Balls");
+  // delay(3000);
 
+  // lcd1.clear();
+  // lcd1.setCursor(0, 0);
+  // lcd1.print("Nuts even.");
+  // delay(3000);
 }
 /*
 

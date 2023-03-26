@@ -12,10 +12,9 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-// #define SS_PIN 53       //SDA pin of RFID
-#define RST_PIN 49      //RST pin of RFID
+#define SS_PIN 53       //SDA pin of RFID
+#define RST_PIN 52      //RST pin of RFID
 
-extern MFRC522 mfrc522;
 extern bool authorised;
 
 const byte ROWS = 4;
