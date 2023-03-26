@@ -13,3 +13,4 @@
 
 void setupColourSensor();
 void readColourSensor();
+void detectColour();

@@ -28,36 +28,37 @@ int bus = 0;  // default channel on the multiplexer
 String state = "inTransit";
 
 void setup() {
-  // pinMode(22, OUTPUT);
-  // pinMode(23, OUTPUT);
-  // pinMode(24, OUTPUT);
   Serial.begin(9600);
-  // setupLasers();
-  //setupMotors();
-  //setupColourSensor();
   lockSetup();
-  // Serial.println("setup complete these nuts ya bam");
+  // setupMotors();
+  // setupLasers();
+  // setupColourSensor();
+  Serial.println("setup complete these nuts ya bam");
 }
 
 void loop() {
-  //avoidance();
+  // avoidance();
+  // readLaserSensors();
+  // readColourSensor();
+  // runSpeaker();
+  lock_op();
+
+  // Possible final loop() layout ------------------
+  
+  // avoidance();
+  
   // moveForward(255);
   // scan();
   // updateDirection(2, state);
-  lock_op();
-  // readLaserSensors();
-  //readColourSensor();
-  //runSpeaker();
-  // lock_op();
-  // lcd1.clear();
-  // lcd1.setCursor(0, 0);
-  // lcd1.print("Balls");
-  // delay(3000);
+  
+  // detectColour();  
 
-  // lcd1.clear();
-  // lcd1.setCursor(0, 0);
-  // lcd1.print("Nuts even.");
-  // delay(3000);
+  // moveForward(255);
+  // scan();
+  // updateDirection(2, state);
+  
+  // -----------------------------------------------
+
 }
 /*
 

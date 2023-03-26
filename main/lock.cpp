@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "lock.h"
 
-MFRC522 mfrc522 = MFRC522();
+MFRC522 mfrc522(0x28);
 bool authorised = false;
 
 char keys[ROWS][COLS] = {
@@ -20,13 +20,13 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void lockSetup() {
   // Channel 6?
-  Serial.println("selecting channel");
-  TCA9548A(5);
-  delay(1000);
-  Serial.println("selected channel 5");
-  mfrc522.PCD_Init();
-  Serial.println("ballz RFID reading UID");
-  authorised = false;
+  // Serial.println("selecting channel");
+  // TCA9548A(5);
+  // delay(1000);
+  // Serial.println("selected channel 5");
+  // mfrc522.PCD_Init();
+  // Serial.println("ballz RFID reading UID");
+  // authorised = false;
 
     // Channel 5?
   Serial.println("selecting channel");

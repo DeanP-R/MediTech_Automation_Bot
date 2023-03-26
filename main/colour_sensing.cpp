@@ -42,3 +42,16 @@ void readColourSensor() {
   // Print the RGB values to the serial port
   Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
+
+void detectColour() {
+  
+  readColourSensor();
+
+  if (RGB[0] > 140) {
+    // Do thing for the colour red.
+
+  } else if (RGB[2] > 100) {
+    // Do the thing for the colour blue.
+
+  }
+}

@@ -69,12 +69,12 @@ void readLaserSensors() {
   Serial.println(LCR[2]);
 
   // Print the sensor values, if necessary
-  //Serial.print("Left Value: ");
-  //Serial.print(LCR[0]);
-  //Serial.print(" | Center value: ");
-  //Serial.print(LCR[1]);
-  //Serial.print(" | Right Value:" );
-  //Serial.println(LCR[2]);
+  // Serial.print("Left Value: ");
+  // Serial.print(LCR[0]);
+  // Serial.print(" | Center value: ");
+  // Serial.print(LCR[1]);
+  // Serial.print(" | Right Value:" );
+  // Serial.println(LCR[2]);
 }
 
 //------------------------
