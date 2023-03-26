@@ -20,7 +20,9 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void lockSetup() {
   // Channel 6?
+  Serial.println("selecting channel");
   TCA9548A(5);
+  Serial.println("selected channel 5");
   //Serial.begin(9600);
   //SPI.begin();
   mfrc522.PCD_Init();
@@ -29,8 +31,11 @@ void lockSetup() {
   authorised = false;
   myServo.write(0);
   // Channel 5?
+  Serial.print("selecting channel");
   TCA9548A(4);  
+  Serial.println("selected channel 4");
   lcd.init();
+  delay(3000);
   lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print("ballz Scan RFID tag");
@@ -38,7 +43,9 @@ void lockSetup() {
 }
 
 void lock_op() {
+Serial.print("selecting channel");
 TCA9548A(5);
+Serial.println("channel selected");
     if (mfrc522.PICC_IsNewCardPresent()) {
       if (mfrc522.PICC_ReadCardSerial()) {
         if (mfrc522.uid.size == 4) {

@@ -28,15 +28,15 @@ Adafruit_VL53L0X laser = Adafruit_VL53L0X();
 String state = "inTransit";
 
 void setup() {
+  // pinMode(22, OUTPUT);
+  // pinMode(23, OUTPUT);
+  // pinMode(24, OUTPUT);
   Serial.begin(9600);
   // setupLasers();
   //setupMotors();
   //setupColourSensor();
-  //lockSetup();
+  lockSetup();
   Serial.println("setup complete these nuts ya bam");
-  pinMode(22, OUTPUT);
-  pinMode(23, OUTPUT);
-  pinMode(24, OUTPUT);
 }
 
 void loop() {
@@ -48,15 +48,7 @@ void loop() {
   // readLaserSensors();
   //readColourSensor();
   //runSpeaker();
-  digitalWrite(22, HIGH);
-  delay(500);
-  digitalWrite(22, LOW);
-  digitalWrite(23, HIGH);
-  delay(500);
-  digitalWrite(23, LOW);
-  digitalWrite(24, HIGH);
-  delay(500);
-  digitalWrite(24, LOW);
+  lock_op();
 
 }
 /*
