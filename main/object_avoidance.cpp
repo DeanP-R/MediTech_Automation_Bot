@@ -53,22 +53,22 @@ void readLaserSensors() {
   TCA9548A(0);
   leftLaser.rangingTest(&leftValue, false);
   LCR[0] = leftValue.RangeMilliMeter;
-  Serial.print("Left Reading: ");
-  Serial.print(LCR[0]);
+  // Serial.print("Left Reading: ");
+  // Serial.print(LCR[0]);
 
   // Read the center sensor and save the data into centerValue
   TCA9548A(1);
   centerLaser.rangingTest(&centerValue, false);
   LCR[1] = centerValue.RangeMilliMeter;
-  Serial.print(" | Center Reading: ");
-  Serial.print(LCR[1]);
+  // Serial.print(" | Center Reading: ");
+  // Serial.print(LCR[1]);
 
   // Read the right sensor and save the data into rightValue
   TCA9548A(2);
   rightLaser.rangingTest(&rightValue, false);
   LCR[2] = rightValue.RangeMilliMeter;
-  Serial.print(" | Right Reading: ");
-  Serial.println(LCR[2]);
+  // Serial.print(" | Right Reading: ");
+  // Serial.println(LCR[2]);
 
   // Print the sensor values, if necessary
   // Serial.print("Left Value: ");

@@ -40,7 +40,7 @@ void readColourSensor() {
   RGB[2] = int(blue); 
 
   // Print the RGB values to the serial port
-  Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
+  // Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
 
 void detectColour(String targetWard, String state) {
@@ -60,8 +60,8 @@ void detectColour(String targetWard, String state) {
   
   else if (RGB[2] > 100 && targetWard == "blue") {
     targetWard = "home";
-    turnRight(255);
-    delay(625);
+    turnLeft(255);
+    delay(1000);
   }
 
   else if (RGB[2] > 100 && targetWard == "home") {

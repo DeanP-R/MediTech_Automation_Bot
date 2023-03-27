@@ -142,7 +142,7 @@ void updateDirection(int duration, String state) {
 
     case B010:// On the line, 
       // If the line is red: 
-      moveForward(200);
+      moveForward(255);
       break;
 
     case B011:// Line is kinda right,

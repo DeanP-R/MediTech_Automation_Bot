@@ -30,33 +30,33 @@ String state = "inTransit";
 String targetWard = "home";
 
 void setup() {
-  Serial.begin(9600);
-  // speakerSetup();
-  // lockSetup(); 
-  // setupMotors();
-  // setupLasers();
+  // Serial.begin(9600);
+  speakerSetup();
+  lockSetup(); 
+  setupMotors();
+  setupLasers();
   setupColourSensor();
-  // lock_op(targetWard);  
+  lock_op(targetWard);  
 }
 
 void loop() {
   // avoidance();
   // readLaserSensors();
-  readColourSensor();
+  // readColourSensor();
   // runSpeaker();  
   // Serial.println("looping");
 
-  //runSpeaker(8, 3000);
+  // runSpeaker(8, 3000);
 
-  // moveForward(255);
-  // scan();
-  // updateDirection(2, state);
+  moveForward(200);
+  scan();
+  updateDirection(2, state);
 
-  // detectColour(targetWard, state);
+  detectColour(targetWard, state);
 
-  // moveForward(255);
-  // scan();
-  // updateDirection(2, state);
+  moveForward(200);
+  scan();
+  updateDirection(2, state);
 
     
 
