@@ -30,13 +30,13 @@ String state = "inTransit";
 String targetWard = "home";
 
 void setup() {
-  // Serial.begin(9600);
-  speakerSetup();
-  lockSetup(); 
+  //Serial.begin(9600);
+  // speakerSetup();
+  // lockSetup(); 
   setupMotors();
-  setupLasers();
+  // setupLasers();
   setupColourSensor();
-  lock_op(targetWard);  
+  // lock_op(targetWard);  
 }
 
 void loop() {

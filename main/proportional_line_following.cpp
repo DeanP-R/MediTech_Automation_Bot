@@ -12,9 +12,9 @@ int irSensorDigital[3] = {0, 0, 0};
 
 // IR sensor threshold value for line detection. - Keith's Line following code
 // 500 for vinyl sheets, 
-// 800 for GRID LAB floor, 
+// 700 for GRID LAB floor, 
 // 700 for kitchen floor, 
-int threshold = 700;
+int threshold = 500;
 
 // binary representation of the sensor reading: 1 when the sensor detects the line, 0 otherwise. - Keith's Line following code 
 int irSensors = B000;
@@ -109,6 +109,13 @@ void scan() {
     int b = 2 - i;
     irSensors = irSensors + (irSensorDigital[i] << b);
   }
+
+  // Serial.print("L: ");
+  // Serial.print(analogRead(irPins[0]));
+  // Serial.print(" C: ");
+  // Serial.print(analogRead(irPins[1]));
+  // Serial.print(" R: ");
+  // Serial.println(analogRead(irPins[2]));
 }
 
 /*
@@ -142,7 +149,7 @@ void updateDirection(int duration, String state) {
 
     case B010:// On the line, 
       // If the line is red: 
-      moveForward(255);
+      moveForward(200);
       break;
 
     case B011:// Line is kinda right,
