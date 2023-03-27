@@ -5,6 +5,7 @@
 #include <SPI.h>
 #include "Adafruit_TCS34725.h"
 #include "multiplexer.h"
+#include "proportional_line_following.h"
 
 // // Define colour sensor output pins. - Example colorview code
 // #define redpin 3
@@ -13,4 +14,4 @@
 
 void setupColourSensor();
 void readColourSensor();
-void detectColour();
+void detectColour(String targetWard, String state);

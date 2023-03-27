@@ -43,15 +43,34 @@ void readColourSensor() {
   Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
 
-void detectColour() {
+void detectColour(String targetWard, String state) {
   
   readColourSensor();
 
-  if (RGB[0] > 140) {
-    // Do thing for the colour red.
+  if (RGB[0] > 140 && targetWard == "red") {
+    targetWard = "home";
+    turnLeft(255);
+    delay(625);
+  } 
+  
+  else if (RGB[0] > 140 && targetWard == "home") {
+    stop();
+    state = "stopped";
+  }
+  
+  else if (RGB[2] > 100 && targetWard == "blue") {
+    targetWard = "home";
+    turnRight(255);
+    delay(625);
+  }
 
-  } else if (RGB[2] > 100) {
-    // Do the thing for the colour blue.
-
+  else if (RGB[2] > 100 && targetWard == "home") {
+    stop();
+    state = "stopped";
+  }
+  
+  // Might cause issues - wait and see.
+  else {
+    state = "inTransit";
   }
 }

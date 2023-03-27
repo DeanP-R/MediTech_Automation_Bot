@@ -2,7 +2,7 @@
 #include "lock.h"
 
 bool authorised = false;
-
+bool isCarrying = false;
 char keys[ROWS][COLS] = {
   { '1', '2', '3', 'A' },
   { '4', '5', '6', 'B' },
@@ -22,6 +22,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 void lockSetup() {
 
+  Serial.begin(9600);
   SPI.begin();
 
   mfrc522.PCD_Init();
@@ -34,7 +35,10 @@ void lockSetup() {
 
   lcd.clear();
 
+  lcd.setCursor(0, 0);
+
   lcd.print("Place RFID tag"); 
+  // runSpeaker(4, 1000);  
 
   myServo.attach(11);
   myServo.write(0);
@@ -42,6 +46,8 @@ void lockSetup() {
 
 void lock_op(String targetWard) {
 
+  TCA9548A(4);
+  while(!isCarrying){
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
 
     String content = "";
@@ -57,19 +63,26 @@ void lock_op(String targetWard) {
     if (content.substring(1) == "37 6A F2 31") {// White card, 
       
       lcd.clear();
+      lcd.backlight();
       lcd.setCursor(0, 0);
       lcd.print("White Card.");
+
+      // runSpeaker(5, 1000);      
 
       String password = readKeypad(0);
       password.toUpperCase();
 
       if (password == "123A") {
+        // runSpeaker(6, 1000);
+        
         myServo.write(90);
         // Add closing thing here, 
         String closer = readKeypad(0);
         closer.toUpperCase();
 
         if (closer == "****") {
+          // runSpeaker(7, 1000);
+
           myServo.write(0); 
 
           lcd.clear();
@@ -82,24 +95,48 @@ void lock_op(String targetWard) {
           lcd.setCursor(0, 0);
           lcd.print("Enter Destination");
           lcd.setCursor(0, 1);
-          lcd.print("1 = Palliative Care");
+          lcd.print("1 = Maternity");
           lcd.setCursor(0, 2);
-          lcd.print("2 = Cardiology");
+          lcd.print("2 = Radiology");
           lcd.setCursor(0, 3);
-          lcd.print("3 = Maternity");  
+          lcd.print("3 = Pharmacy");  
 
           String destination = readKeypad(1);
 
           if (destination == "1") {
             targetWard = "red";
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Maternity");
+            // runSpeaker(14, 3000);
+            isCarrying = true;
               
           } else if (destination == "2") {
             targetWard = "blue";  
-                     
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Radiology");
+            // runSpeaker(15, 3000);
+            isCarrying = true;
+                    
           } else if (destination == "3") {
             targetWard = "yellow";
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Pharmacy");
+            // runSpeaker(13, 3000);
+            isCarrying = true;
           }           
-                         
+                        
         }
       } else if (password == "1A*D") {
         lcd.clear();
@@ -110,19 +147,26 @@ void lock_op(String targetWard) {
     } else if (content.substring(1) == "92 6C EB 02") {// Blue fob, 
       
       lcd.clear();
+      lcd.backlight();
       lcd.setCursor(0, 0);
       lcd.print("Blue Fob.");
 
-      String password = readKeypad(0);
-      password.toUpperCase();
+      // runSpeaker(5, 1000);
 
+      String password = readKeypad(0);
+      //password.toUpperCase();
+      Serial.println(password);
       if (password == "789C") {
+        // runSpeaker(6, 1000);
+        
         myServo.write(90); 
         // Add closing thing here,    
         String closer = readKeypad(0);
         closer.toUpperCase();
         
         if (closer == "****") {
+          // runSpeaker(7, 1000);
+          
           myServo.write(0); 
 
           lcd.clear();
@@ -135,34 +179,58 @@ void lock_op(String targetWard) {
           lcd.setCursor(0, 0);
           lcd.print("Enter Destination");
           lcd.setCursor(0, 1);
-          lcd.print("1 = Palliative Care");
+          lcd.print("1 = Maternity");
           lcd.setCursor(0, 2);
-          lcd.print("2 = Cardiology");
+          lcd.print("2 = Radiology");
           lcd.setCursor(0, 3);
-          lcd.print("3 = Maternity");
+          lcd.print("3 = Pharmacy");
 
           String destination = readKeypad(1);
 
           if (destination == "1") {
             targetWard = "red";
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Maternity");
+            // runSpeaker(14, 3000);
+            isCarrying = true;
               
           } else if (destination == "2") {
             targetWard = "blue";  
-                     
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Radiology");
+            // runSpeaker(15, 3000);
+            isCarrying = true;
+                    
           } else if (destination == "3") {
             targetWard = "yellow";
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            lcd.print("On Route to");
+            // runSpeaker(10, 3000);
+            lcd.setCursor(0, 1);
+            lcd.print("Pharmacy");
+            // runSpeaker(13, 3000);
+            isCarrying = true;
+
           }      
         }          
       }    
-
     } else {
       lcd.clear();
       lcd.setCursor(0, 0);
       lcd.print("Data invalid.");
     }
-  }
+  }  
 }
-
+}
 String readKeypad(int mode) {
   String input = "";
   if (mode == 0) {
@@ -173,7 +241,12 @@ String readKeypad(int mode) {
       }
     }  
   } else if (mode == 1) {
-    input = keypad.getKey();    
+    while (input.length() < 1) {
+      char key = keypad.getKey();   
+      if (key != NO_KEY) {
+        input += key;
+      }
+    };    
   }  
 
 

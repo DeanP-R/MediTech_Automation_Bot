@@ -8,9 +8,10 @@
 #include <MFRC522.h>
 #include <Keypad.h>
 #include <Servo.h>
-#include "multiplexer.h"
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
+#include "multiplexer.h"
+#include "speakers.h"
 
 #define SS_PIN 53       //SDA pin of RFID
 #define RST_PIN 8      //RST pin of RFID

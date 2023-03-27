@@ -4,7 +4,7 @@
 SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
 DFRobotDFPlayerMini player;
 
-int music_wait = 5000;
+int music_wait = 1000;
 
 void speakerSetup() {
   // Init USB serial port for debugging
@@ -16,14 +16,16 @@ void speakerSetup() {
   if (player.begin(softwareSerial)) {
     Serial.println("OK");
     // Set volume to maximum (0 to 30).
-    player.volume(30);
+    player.volume(0);
     // Play the "0001.mp3" in the "mp3" folder on the SD card
   } else {
     Serial.println("Connecting to DFPlayer Mini failed!");
   }
 }
 
-void runSpeaker() {
+void runSpeaker(int command, int timing) {   
+  player.playMp3Folder(command);
+  delay(timing);
   // player.playMp3Folder(1);  //Moving
   // delay(music_wait);
   // player.playMp3Folder(2);  //Obstacle detected

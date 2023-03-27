@@ -32,6 +32,8 @@ VL53L0X_RangingMeasurementData_t rightValue;
 // Method to initialize the laser sensors
 void setupLasers() {  
   // Initialize the laser sensors
+  delay(400);
+ 
   TCA9548A(0);
   leftLaser.begin(LEFT_ADDRESS);
   delay(400);
