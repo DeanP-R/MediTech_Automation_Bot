@@ -49,220 +49,83 @@ void lock_op(String targetWard) {
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Place RFID Tag");
-  //runSpeaker(4, 1000);
 
-  while(!isCarrying){
-  if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
+  while (!isCarrying) {
+    if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
 
-    String content = "";
+      String content = "";
 
-    for (byte i = 0; i < mfrc522.uid.size; i++) {
+      for (byte i = 0; i < mfrc522.uid.size; i++) {
 
-      content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
-      content.concat(String(mfrc522.uid.uidByte[i], HEX));
+        content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
+        content.concat(String(mfrc522.uid.uidByte[i], HEX));
 
-    }
-    content.toUpperCase();
+      }
+      content.toUpperCase();
 
-    if (content.substring(1) == "37 6A F2 31") {// White card, 
-      
-      lcd.clear();
-      lcd.backlight();
-      lcd.setCursor(0, 0);
-      lcd.print("Authorised.");
+      if (content.substring(1) == "37 6A F2 31" || content.substring(1) == "92 6C EB 02") {// White card, 
 
-      //runSpeaker(5, 1000);      
-
-      String password = readKeypad(0);
-      password.toUpperCase();
-
-      if (password == "123A") {
-        //runSpeaker(6, 1000);
-        
         myServo.write(90);
 
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Enter medicine.");
+        lcd.print("Enter Destination");
+        lcd.setCursor(0, 1);
+        lcd.print("1 = Maternity");
+        lcd.setCursor(0, 2);
+        lcd.print("2 = Radiology");
+        lcd.setCursor(0, 3);
+        lcd.print("3 = Pharmacy");  
 
-        // Add closing thing here, 
-        String closer = readKeypad(0);
-        closer.toUpperCase();
+        String destination = readKeypad();
 
-        if (closer == "****") {
-          //runSpeaker(7, 1000);
-
-          myServo.write(0); 
-
+        if (destination == "1") {
+          targetWard = "red";
+          myServo.write(0);
           lcd.clear();
           lcd.setCursor(0, 0);
-          lcd.print("Medicine Secured...");  
-
-          delay(2000);
-
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print("Enter Destination");
+          lcd.print("On Route to");
           lcd.setCursor(0, 1);
-          lcd.print("1 = Maternity");
-          lcd.setCursor(0, 2);
-          lcd.print("2 = Radiology");
-          lcd.setCursor(0, 3);
-          lcd.print("3 = Pharmacy");  
-
-          String destination = readKeypad(1);
-
-          if (destination == "1") {
-            targetWard = "red";
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            //runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Maternity");
-            //runSpeaker(14, 3000);
-            isCarrying = true;
-              
-          } else if (destination == "2") {
-            targetWard = "blue";  
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            //runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Radiology");
-            //runSpeaker(15, 3000);
-            isCarrying = true;
-                    
-          } else if (destination == "3") {
-            targetWard = "yellow";
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            //runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Pharmacy");
-            //runSpeaker(13, 3000);
-            isCarrying = true;
-          }           
-                        
-        }
-      } else if (password == "1A*D") {
+          lcd.print("Maternity");
+          isCarrying = true;
+            
+        } else if (destination == "2") {
+          targetWard = "blue";  
+          myServo.write(0);
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print("On Route to");
+          lcd.setCursor(0, 1);
+          lcd.print("Radiology");
+          isCarrying = true;
+                  
+        } else if (destination == "3") {
+          targetWard = "yellow";
+          myServo.write(0);
+          lcd.clear();
+          lcd.setCursor(0, 0);
+          lcd.print("On Route to");
+          lcd.setCursor(0, 1);
+          lcd.print("Pharmacy");
+          isCarrying = true;
+        }     
+      } else {
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("karate keef");
-      }
-
-    } else if (content.substring(1) == "92 6C EB 02") {// Blue fob, 
-      
-      lcd.clear();
-      lcd.backlight();
-      lcd.setCursor(0, 0);
-      lcd.print("Authorised.");
-
-      //runSpeaker(5, 1000);
-
-      String password = readKeypad(0);
-      //password.toUpperCase();
-      Serial.println(password);
-      if (password == "789C") {
-        //runSpeaker(6, 1000);
-        
-        myServo.write(90); 
-
-       lcd.clear();
-       lcd.setCursor(0, 0);
-       lcd.print("Enter medicine.");  
-
-        // Add closing thing here,    
-        String closer = readKeypad(0);
-        closer.toUpperCase();
-        
-        if (closer == "****") {
-          //runSpeaker(7, 1000);
-          
-          myServo.write(0); 
-
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print("Medicine Secured...");  
-
-          delay(2000);
-
-          lcd.clear();
-          lcd.setCursor(0, 0);
-          lcd.print("Enter Destination");
-          lcd.setCursor(0, 1);
-          lcd.print("1 = Maternity");
-          lcd.setCursor(0, 2);
-          lcd.print("2 = Radiology");
-          lcd.setCursor(0, 3);
-          lcd.print("3 = Pharmacy");
-
-          String destination = readKeypad(1);
-
-          if (destination == "1") {
-            targetWard = "red";
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            //runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Maternity");
-            //runSpeaker(14, 3000);
-            isCarrying = true;
-              
-          } else if (destination == "2") {
-            targetWard = "blue";  
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Radiology");
-            runSpeaker(15, 3000);
-            isCarrying = true;
-                    
-          } else if (destination == "3") {
-            targetWard = "yellow";
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print("On Route to");
-            runSpeaker(10, 3000);
-            lcd.setCursor(0, 1);
-            lcd.print("Pharmacy");
-            runSpeaker(13, 3000);
-            isCarrying = true;
-
-          }      
-        }          
-      }    
-    } else {
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Data invalid.");
-    }
-  }  
-}
-}
-String readKeypad(int mode) {
-  String input = "";
-  if (mode == 0) {
-    while (input.length() < 4) {
-      char key = keypad.getKey();   
-      if (key != NO_KEY) {
-        input += key;
+        lcd.print("Data invalid.");
       }
     }  
-  } else if (mode == 1) {
-    while (input.length() < 1) {
-      char key = keypad.getKey();   
-      if (key != NO_KEY) {
-        input += key;
-      }
-    };    
-  }  
+  }
+}
 
+String readKeypad() {
+  String input = "";
+  while (input.length() < 1) {
+    char key = keypad.getKey();   
+    if (key != NO_KEY) {
+      input += key;
+    }
+  }  
 
   return input;
 }

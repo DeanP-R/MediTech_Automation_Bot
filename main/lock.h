@@ -29,5 +29,5 @@ extern LiquidCrystal_I2C lcd;
 
 void lockSetup();
 void lock_op(String targetWard);
-String readKeypad(int mode);
+String readKeypad();
 
