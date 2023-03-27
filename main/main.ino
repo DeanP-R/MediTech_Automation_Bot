@@ -33,13 +33,13 @@ void setup() {
   //Serial.begin(9600);
   // speakerSetup();
   // lockSetup(); 
-  // setupMotors();
+  setupMotors();
   // Serial.begin(9600);
-  lockSetup(); 
+  // lockSetup(); 
   // setupMotors();
   // setupLasers();
   // setupColourSensor();  
-  lock_op(targetWard);  
+  // lock_op(targetWard);  
   // speakerSetup(); 
 }
 
@@ -59,9 +59,9 @@ void loop() {
 
   // detectColour(targetWard, state);
 
-  // moveForward(200);
-  // scan();
-  // updateDirection(2, state);
+  moveForward(200);
+  scan();
+  updateDirection(2, state);
 
     
 

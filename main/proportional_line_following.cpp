@@ -14,7 +14,7 @@ int irSensorDigital[3] = {0, 0, 0};
 // 500 for vinyl sheets, 
 // 700 for GRID LAB floor, 
 // 700 for kitchen floor, 
-int threshold = 500;
+int threshold = 700;
 
 // binary representation of the sensor reading: 1 when the sensor detects the line, 0 otherwise. - Keith's Line following code 
 int irSensors = B000;
