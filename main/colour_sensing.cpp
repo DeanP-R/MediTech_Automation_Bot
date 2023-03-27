@@ -16,8 +16,12 @@ void setupColourSensor() {
   // Configure the TCA9548A multiplexer to use the fourth channel
   TCA9548A(3);
   // Initialize the colour sensor with the I2C address 0x29
-  tcs.begin(0x29);
-  delay(300);
+  while(!tcs.begin(0x29)){
+    tcs.disable();
+    delay(10);
+    tcs.enable();
+  }
+  //delay(300);
 }
 
 /*
