@@ -32,19 +32,40 @@ VL53L0X_RangingMeasurementData_t rightValue;
 // Method to initialize the laser sensors
 void setupLasers() {  
   // Initialize the laser sensors
-  delay(400);
- 
+  pinMode(SHT_LEFT, OUTPUT);
+  pinMode(SHT_CENTER, OUTPUT);
+  pinMode(SHT_RIGHT, OUTPUT);
+
+  digitalWrite(SHT_LEFT, LOW);
+  digitalWrite(SHT_CENTER, LOW);
+  digitalWrite(SHT_RIGHT, LOW);
+
+  digitalWrite(SHT_LEFT, HIGH); 
   TCA9548A(0);
-  leftLaser.begin(LEFT_ADDRESS);
-  delay(400);
+  while (!leftLaser.begin(LEFT_ADDRESS)) {
+    digitalWrite(SHT_LEFT, LOW);
+    delay(10);
+    digitalWrite(SHT_LEFT, HIGH);
+  }  
+  delay(10);
 
+  digitalWrite(SHT_CENTER, HIGH);
   TCA9548A(1);
-  centerLaser.begin(CENTER_ADDRESS);
-  delay(400);
+  while (!centerLaser.begin(CENTER_ADDRESS)) {
+    digitalWrite(SHT_CENTER, LOW);
+    delay(10);
+    digitalWrite(SHT_CENTER, HIGH);
+  }  
+  delay(10);
 
+  digitalWrite(SHT_RIGHT, HIGH);
   TCA9548A(2);
-  rightLaser.begin(RIGHT_ADDRESS);
-  delay(400);
+  while (!rightLaser.begin(RIGHT_ADDRESS)) {
+    digitalWrite(SHT_RIGHT, LOW);
+    delay(10);
+    digitalWrite(SHT_RIGHT, HIGH);
+  }  
+  delay(10);
 }
 // Method to read the laser sensors and save the data into an array
 
