@@ -37,14 +37,14 @@ void setup() {
   // Serial.begin(9600);
   // lockSetup(); 
   // setupMotors();
-  // setupLasers();
+  setupLasers();
   // setupColourSensor();  
   // lock_op(targetWard);  
   // speakerSetup(); 
 }
 
 void loop() {
-  // avoidance();
+  avoidance();
   // readLaserSensors();
   // readColourSensor();
   // runSpeaker();  
