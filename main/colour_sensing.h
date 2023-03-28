@@ -14,4 +14,4 @@
 
 void setupColourSensor();
 void readColourSensor();
-void detectColour(String targetWard, String state);
+void detectColour(String targetWard, String state, bool medicineDelivered);

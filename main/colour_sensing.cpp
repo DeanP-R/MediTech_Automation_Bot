@@ -16,12 +16,21 @@ void setupColourSensor() {
   // Configure the TCA9548A multiplexer to use the fourth channel
   TCA9548A(3);
   // Initialize the colour sensor with the I2C address 0x29
-  while(!tcs.begin(0x29)){
+  if (!tcs.begin(0x29)) {
     tcs.disable();
-    delay(10);
     tcs.enable();
+    Serial.println("Trying");
+    delay(500);
   }
-  //delay(300);
+
+  TCA9548A(3);
+  // Initialize the colour sensor with the I2C address 0x29
+  if (!tcs.begin(0x29)) {
+    tcs.disable();
+    tcs.enable();
+    Serial.println("Trying");
+    delay(500);
+  }
 }
 
 /*
@@ -44,37 +53,55 @@ void readColourSensor() {
   RGB[2] = int(blue); 
 
   // Print the RGB values to the serial port
-  // Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
+  Serial.print("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
 
-void detectColour(String targetWard, String state) {
+void detectColour(String targetWard, String state, bool medicineDelivered) {
   
   readColourSensor();
 
-  if (RGB[0] > 140 && targetWard == "red") {
-    targetWard = "home";
-    turnLeft(255);
-    delay(625);
-  } 
-  
-  else if (RGB[0] > 140 && targetWard == "home") {
-    stop();
-    state = "stopped";
-  }
-  
-  else if (RGB[2] > 100 && targetWard == "blue") {
-    targetWard = "home";
-    turnLeft(255);
-    delay(1000);
-  }
+  if (RGB[0] > 140) {
+    if (targetWard == "home") {
+      stop();
+      state = "stopped";
 
-  else if (RGB[2] > 100 && targetWard == "home") {
-    stop();
-    state = "stopped";
-  }
+    } else if (targetWard = "red") {
+      targetWard = "home";
+      stop();
+      delay(1000);
+      turnRight(255);
+      delay(625);      
+    }
+        
+  } else if (RGB[2] > 100) {
+    if (targetWard == "home") {
+      stop();
+      state = "stopped";
+
+    } else if (targetWard == "blue") {
+      targetWard = "home";
+      stop();
+      delay(1000);
+      turnRight(255);
+      delay(625);
+    }
   
-  // Might cause issues - wait and see.
-  else {
+  } 
+  else if (RGB[0] > 100 && RGB[2] < 50) {
+    if (targetWard == "home") {
+      stop();
+      state = "stopped";
+
+    } else if (targetWard == "yellow") {
+      targetWard = "home";
+      stop();
+      delay(1000);
+      turnRight(255);
+      delay(625);
+    }
+  
+  } else {
     state = "inTransit";
+
   }
 }

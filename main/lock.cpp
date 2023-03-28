@@ -28,12 +28,16 @@ void lockSetup() {
   mfrc522.PCD_Init();
 
   TCA9548A(4);
-
-  // turn on the backlight
   lcd.init();
   lcd.clear();
   lcd.backlight();
   lcd.setCursor(0, 0);
+
+  TCA9548A(4);
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
+  lcd.setCursor(0, 0);  
   
   delay(100);
   lcd.print("Loading sensors...");   

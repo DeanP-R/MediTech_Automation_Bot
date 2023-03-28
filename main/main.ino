@@ -7,7 +7,7 @@
   Compiler        : avr-g++                                                             *
   IDE             : Arduino 2.0.3                                                       *
   Programmer      : Arduino ISP (In-System Programmer)                                  *
-  Last Updated    : 23th March 2023                                                     *
+  Last Updated    : 28th March 2023                                                     *
 ****************************************************************************************/
 
 //test these nuts ya bam
@@ -18,54 +18,32 @@
 #include "object_avoidance.h"
 #include "lock.h"
 #include "multiplexer.h"
-// #include <Wire.h>
-// #include <LiquidCrystal_I2C.h>
 
 int bus = 0;  // default channel on the multiplexer
 
-// LiquidCrystal_I2C lcd1(0x27, 20, 4);
-// Adafruit_VL53L0X laser = Adafruit_VL53L0X();
 String state = "inTransit";
+
+bool medicineDelivered = false;
 
 String targetWard = "home";
 
 void setup() {
-  //Serial.begin(9600);
-  // speakerSetup();
-  // lockSetup(); 
+  Serial.begin(9600);
+  lockSetup(); 
   setupMotors();
-  // Serial.begin(9600);
-  // lockSetup(); 
-  // setupMotors();
   setupLasers();
-  // setupColourSensor();  
-  // lock_op(targetWard);  
-  // speakerSetup(); 
+  setupColourSensor();  
+  lock_op(targetWard);  
 }
 
 void loop() {
-  avoidance();
-  // readLaserSensors();
-  // readColourSensor();
-  // runSpeaker();  
-  // Serial.println("looping");
 
-  // runSpeaker(8, 3000);
-  // runSpeaker(8, 3000);
+  readColourSensor();
+  readLaserSensors();
 
-  // moveForward(200);
+  // moveForward(255);
   // scan();
   // updateDirection(2, state);
-
-  // detectColour(targetWard, state);
-
-  moveForward(200);
-  scan();
-  updateDirection(2, state);
-
-    
-
-  // Possible final loop() layout ------------------
   
   // avoidance();
   
@@ -73,15 +51,10 @@ void loop() {
   // scan();
   // updateDirection(2, state);
   
-  // detectColour();  
+  // detectColour(targetWard, state, medicineDelivered);  
 
   // moveForward(255);
   // scan();
   // updateDirection(2, state);
   
-  // -----------------------------------------------
-
 }
-/*
-
-*/

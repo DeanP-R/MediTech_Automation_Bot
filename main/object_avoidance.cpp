@@ -26,11 +26,8 @@ VL53L0X_RangingMeasurementData_t leftValue;
 VL53L0X_RangingMeasurementData_t centerValue;
 VL53L0X_RangingMeasurementData_t rightValue;
 
-
-
-
 // Method to initialize the laser sensors
-void setupLasers() {  
+void setupLasers() {
   // Initialize the laser sensors
   pinMode(SHT_LEFT, OUTPUT);
   pinMode(SHT_CENTER, OUTPUT);
@@ -40,32 +37,45 @@ void setupLasers() {
   digitalWrite(SHT_CENTER, LOW);
   digitalWrite(SHT_RIGHT, LOW);
 
-  digitalWrite(SHT_LEFT, HIGH); 
+  digitalWrite(SHT_LEFT, HIGH);
   TCA9548A(0);
-  while (!leftLaser.begin(LEFT_ADDRESS)) {
+  if (!leftLaser.begin(LEFT_ADDRESS)) {
+    Serial.println("Trying left.");
     digitalWrite(SHT_LEFT, LOW);
     delay(10);
     digitalWrite(SHT_LEFT, HIGH);
-  }  
+  }
   delay(10);
 
   digitalWrite(SHT_CENTER, HIGH);
   TCA9548A(1);
   while (!centerLaser.begin(CENTER_ADDRESS)) {
+    Serial.println("Trying center.");
     digitalWrite(SHT_CENTER, LOW);
     delay(10);
     digitalWrite(SHT_CENTER, HIGH);
-  }  
+  }
   delay(10);
 
   digitalWrite(SHT_RIGHT, HIGH);
   TCA9548A(2);
   while (!rightLaser.begin(RIGHT_ADDRESS)) {
+    Serial.println("Trying right.");
     digitalWrite(SHT_RIGHT, LOW);
     delay(10);
     digitalWrite(SHT_RIGHT, HIGH);
-  }  
+  }
   delay(10);
+
+  digitalWrite(SHT_LEFT, HIGH);
+  TCA9548A(0);
+  while (!leftLaser.begin(LEFT_ADDRESS)) {
+    Serial.println("Trying left.");
+    digitalWrite(SHT_LEFT, LOW);
+    delay(10);
+    digitalWrite(SHT_LEFT, HIGH);
+  }
+  delay(10);  
 }
 // Method to read the laser sensors and save the data into an array
 
@@ -74,30 +84,22 @@ void readLaserSensors() {
   TCA9548A(0);
   leftLaser.rangingTest(&leftValue, false);
   LCR[0] = leftValue.RangeMilliMeter;
-  // Serial.print("Left Reading: ");
-  // Serial.print(LCR[0]);
+  Serial.print("Left Reading: ");
+  Serial.print(LCR[0]);
 
   // Read the center sensor and save the data into centerValue
   TCA9548A(1);
   centerLaser.rangingTest(&centerValue, false);
   LCR[1] = centerValue.RangeMilliMeter;
-  // Serial.print(" | Center Reading: ");
-  // Serial.print(LCR[1]);
+  Serial.print(" | Center Reading: ");
+  Serial.print(LCR[1]);
 
   // Read the right sensor and save the data into rightValue
   TCA9548A(2);
   rightLaser.rangingTest(&rightValue, false);
   LCR[2] = rightValue.RangeMilliMeter;
-  // Serial.print(" | Right Reading: ");
-  // Serial.println(LCR[2]);
-
-  // Print the sensor values, if necessary
-  // Serial.print("Left Value: ");
-  // Serial.print(LCR[0]);
-  // Serial.print(" | Center value: ");
-  // Serial.print(LCR[1]);
-  // Serial.print(" | Right Value:" );
-  // Serial.println(LCR[2]);
+  Serial.print(" | Right Reading: ");
+  Serial.println(LCR[2]);
 }
 
 //------------------------
@@ -154,7 +156,7 @@ void swerveLeft() {
 }
 
 void avoidance() {
-  
+
   //Update TOF sensor values
   readLaserSensors();
   //Consideration distance - distance at which Fred will perform evasive maneuver
@@ -163,12 +165,15 @@ void avoidance() {
     int leftToRightSensor = LCR[0] - LCR[2];
     //If difference is +ve - obstacle is on the right - turn to left
     if (leftToRightSensor > 0) {
+      // Serial.println("Swerve Left");
       swerveLeft();
     } else if (leftToRightSensor < 0) {
       //If difference is -ve - obstacle is on the left - turn right
+      // Serial.println("Swerve right");
       swerveRight();
     } else {
       //If there is no difference, re-run calculation
+      // Serial.println("Deciding");
       avoidance();
     }
   }
