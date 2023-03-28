@@ -30,16 +30,16 @@ String targetWard = "home";
 void setup() {
   Serial.begin(9600);
   lockSetup(); 
-  setupMotors();
-  setupLasers();
-  setupColourSensor();  
+  // setupMotors();
+  // setupLasers();
+  // setupColourSensor();  
   lock_op(targetWard);  
 }
 
 void loop() {
 
-  readColourSensor();
-  readLaserSensors();
+  // readColourSensor();
+  // readLaserSensors();
 
   // moveForward(255);
   // scan();
