@@ -46,7 +46,9 @@ void lockSetup() {
   myServo.write(0);
 }
 
-void lock_op(String targetWard) {
+String lock_op() {
+
+  String targetWard = "";
 
   TCA9548A(4);
 
@@ -120,6 +122,8 @@ void lock_op(String targetWard) {
       }
     }  
   }
+
+  return targetWard;
 }
 
 String readKeypad() {

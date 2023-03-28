@@ -17,4 +17,4 @@ void turnRight(int pwmSpeed);
 void turnLeft(int pwmSpeed);
 void stop();
 void scan();
-void updateDirection(int duration, String state);
+void updateDirection(int duration, bool inTransit);

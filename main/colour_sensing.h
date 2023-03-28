@@ -13,5 +13,5 @@
 // #define bluepin 6
 
 void setupColourSensor();
-void readColourSensor();
-void detectColour(String targetWard, String state, bool medicineDelivered);
+void readColourSensor(int* RGB);
+// bool detectColour(String targetWard, bool inTransit);

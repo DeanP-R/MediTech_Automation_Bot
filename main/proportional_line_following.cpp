@@ -122,9 +122,9 @@ void scan() {
  * This method reads the binary sensor reading and depending on the values within it, 
  * updates the direction the motors are turning for a specified period of time. - Reece
  */
-void updateDirection(int duration, String state) {
+void updateDirection(int duration, bool inTransit) {
   
-  if (state.equals("inTransit")) {
+  if (inTransit == true) {
     switch (irSensors) {
 
     case B000:// Not on the line,

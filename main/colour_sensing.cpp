@@ -4,8 +4,9 @@
 
 // Create an object of the Adafruit_TCS34725 class for the colour sensor
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
-// Create an array to store the RGB values read from the colour sensor
-int RGB[3];
+
+// // Create an array to store the RGB values read from the colour sensor
+// int RGB[3];
 
 /*
  * This method starts the colour sensor,
@@ -37,7 +38,7 @@ void setupColourSensor() {
  * This method reads the RGB values from the colour sensor,
  * and stores them in the RGB array.
  */
-void readColourSensor() {
+void readColourSensor(int* RGB) {
   float red, green, blue;
   // Select channel 4 on the TCA9548A multiplexer
   TCA9548A(3);
@@ -53,55 +54,56 @@ void readColourSensor() {
   RGB[2] = int(blue); 
 
   // Print the RGB values to the serial port
-  Serial.print("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
+  // Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
 }
 
-void detectColour(String targetWard, String state, bool medicineDelivered) {
-  
-  readColourSensor();
+// bool detectColour(String targetWard, bool inTransit) {
 
-  if (RGB[0] > 140) {
-    if (targetWard == "home") {
-      stop();
-      state = "stopped";
+//   readColourSensor();
 
-    } else if (targetWard = "red") {
-      targetWard = "home";
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);      
-    }
+//   if (RGB[0] > 140) {
+//     if (targetWard == "home") {
+//       stop();
+//       inTransit = false;
+
+//     } else if (targetWard == "red") {
+//       targetWard = "home";
+//       stop();
+//       delay(1000);
+//       turnRight(255);
+//       delay(625);      
+//     }
         
-  } else if (RGB[2] > 100) {
-    if (targetWard == "home") {
-      stop();
-      state = "stopped";
+//   } else if (RGB[2] > 100) {
+//     if (targetWard == "home") {
+//       stop();
+//       inTransit = false;
 
-    } else if (targetWard == "blue") {
-      targetWard = "home";
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);
-    }
+//     } else if (targetWard == "blue") {
+//       targetWard = "home";
+//       stop();
+//       delay(1000);
+//       turnRight(255);
+//       delay(625);
+//     }
   
-  } 
-  else if (RGB[0] > 100 && RGB[2] < 50) {
-    if (targetWard == "home") {
-      stop();
-      state = "stopped";
+//   } 
+//   else if (RGB[0] > 100 && RGB[2] < 50) {
+//     if (targetWard == "home") {
+//       stop();
+//       inTransit = false;
 
-    } else if (targetWard == "yellow") {
-      targetWard = "home";
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);
-    }
+//     } else if (targetWard == "yellow") {
+//       targetWard = "home";
+//       stop();
+//       delay(1000);
+//       turnRight(255);
+//       delay(625);
+//     }
   
-  } else {
-    state = "inTransit";
+//   } else {
+//     inTransit = true;
+//     moveForward(255);
 
-  }
-}
+//   }
+// }
