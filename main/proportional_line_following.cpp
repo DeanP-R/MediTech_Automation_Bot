@@ -122,48 +122,46 @@ void scan() {
  * This method reads the binary sensor reading and depending on the values within it, 
  * updates the direction the motors are turning for a specified period of time. - Reece
  */
-void updateDirection(int duration, bool inTransit) {
+void updateDirection(int duration) {
   
-  if (inTransit == true) {
-    switch (irSensors) {
+  switch (irSensors) {
 
-    case B000:// Not on the line,
-          
-      // If the last recorded reading indicated that the line was on the left: turn left, 
-      if (lastIrReading == B110 || lastIrReading == B100) {
-        turnLeft(220);
+  case B000:// Not on the line,
         
-      // If the last recorded reading indicated that the line was on the right: turn right,  
-      } else if (lastIrReading == B011 || lastIrReading == B001) {
-        turnRight(220);
-      }
-      break;
-
-    case B100:// Line is very left, 
+    // If the last recorded reading indicated that the line was on the left: turn left, 
+    if (lastIrReading == B110 || lastIrReading == B100) {
       turnLeft(255);
-      break;
-
-    case B110:// Line is kinda left, 
-      turnLeft(255);
-      break;
-
-    case B010:// On the line, 
-      // If the line is red: 
-      moveForward(180);
-      break;
-
-    case B011:// Line is kinda right,
+      
+    // If the last recorded reading indicated that the line was on the right: turn right,  
+    } else if (lastIrReading == B011 || lastIrReading == B001) {
       turnRight(255);
-      break;
-
-    case B001:// Line is very right,
-      turnRight(255);
-      break;
-
-    case B111:// Perpendicular to the line, 
-      turnRight(220);
-      break;
     }
+    break;
+
+  case B100:// Line is very left, 
+    turnLeft(255);
+    break;
+
+  case B110:// Line is kinda left, 
+    turnLeft(255);
+    break;
+
+  case B010:// On the line, 
+    // If the line is red: 
+    moveForward(200);
+    break;
+
+  case B011:// Line is kinda right,
+    turnRight(255);
+    break;
+
+  case B001:// Line is very right,
+    turnRight(255);
+    break;
+
+  case B111:// Perpendicular to the line, 
+    turnRight(255);
+    break;
   }
 
   // If the current reading indicates that the line is present: replace the last recorded reading with the current reading,

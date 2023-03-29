@@ -5,6 +5,9 @@
 
 void setupLasers();
 void readLaserSensors();
+void readLeftSensor();
+void readCenterSensor();
+void readRightSensor();
 void swerveLeft();
 void swerveRight();
 void avoidance();

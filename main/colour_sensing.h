@@ -14,4 +14,3 @@
 
 void setupColourSensor();
 void readColourSensor(int* RGB);
-// bool detectColour(String targetWard, bool inTransit);

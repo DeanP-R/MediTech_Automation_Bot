@@ -21,8 +21,6 @@
 
 int bus = 0;  // default channel on the multiplexer
 
-bool inTransit = true;
-
 String targetWard = "home";
 
 // Create an array to store the RGB values read from the colour sensor
@@ -35,56 +33,76 @@ void setup() {
   pinMode(22, OUTPUT);// green
   pinMode(23, OUTPUT);// yellow
   
-  // lockSetup(); 
-  // setupMotors();
+  lockSetup(); 
+  setupMotors();
   setupLasers();
-//   setupColourSensor();  
-//   targetWard = lock_op();    
+  setupColourSensor();  
+  targetWard = lock_op();    
 }
 
 /*
-@ 255 625 == 
+@ pwm 255: 
+1250 delay = 180 degree turn
+625 delay = 90 degree turn
+313 delay = 45 degree turn
 */
 
 void loop() {
   
-  readLaserSensors();
-  
-  // avoidance(); 
-
+  // // Task 1
   // digitalWrite(24, HIGH);
   // digitalWrite(22, LOW);
   // digitalWrite(23, LOW);
 
-  // readColourSensor(RGB);
+  // // Task 2
+  // readLeftSensor();
+  // moveForward(200);
+  // scan();
+  // updateDirection(2);
 
-  // if (RGB[0] > 140) {     //red
+  // // Task 3
+  // readCenterSensor();
+  // moveForward(200);
+  // scan();
+  // updateDirection(2);
+  
+  // // Task 4
+  // readRightSensor();
+  // moveForward(200);
+  // scan();
+  // updateDirection(2);
+  
+  // // Task 5
+  // avoidance(); 
+  // moveForward(200);
+  // scan();
+  // updateDirection(2);
+
+  // Task 6
+  readColourSensor(RGB);
+
+  // while (RGB[0] > 140) {     //red
+  //   moveForward(200);
+  //   delay(100);
   //   stop();
-  //   inTransit = false;
   //   targetWard = lock_op();
-  //   turnRight(255);
-  //   delay(200);
-  //   moveForward(180);
-  //   delay(200);
-        
-  // } else if (RGB[2] > 100 && targetWard == "blue") {  //blue
+  //   readColourSensor(RGB);    
+  // }
+  
+  // if (RGB[2] > 100 && targetWard == "blue") {  //blue
   //   stop();
   //   delay(1000);
   //   turnRight(255);
   //   delay(312);
   
-  // } else if (RGB[0] > 100 && RGB[2] < 50) { //yellow
+  // } else if (RGB[0] > 100 && RGB[2] < 50 && targetWard == "yellow") { //yellow
   //   stop();
   //   delay(1000);
   //   turnRight(255);
   //   delay(200);
   
-  // } else {
-  //   inTransit = true;
-  //   moveForward(180);
-
   // }
-
+  // moveForward(200);
   // scan();
-  // updateDirection(2, inTransit); 
+  // updateDirection(2); 
 }

@@ -21,6 +21,8 @@ Adafruit_VL53L0X rightLaser = Adafruit_VL53L0X();
 //create integer array for storing TOF sensor values
 int LCR[3];
 
+int consDist = 200;
+
 // Create variables to store the range data for each sensor
 VL53L0X_RangingMeasurementData_t leftValue;
 VL53L0X_RangingMeasurementData_t centerValue;
@@ -82,24 +84,41 @@ void setupLasers() {
 void readLaserSensors() {
   // Read the left sensor and save the data into leftValue
   TCA9548A(0);
-  // leftLaser.rangingTest(&leftValue, false);
-  // LCR[0] = int(leftValue);
-  Serial.print("Left Reading: ");
-  Serial.print(leftLaser.readRange());
+  leftLaser.rangingTest(&leftValue, false);
+  LCR[0] = leftValue.RangeMilliMeter;
 
   // Read the center sensor and save the data into centerValue
   TCA9548A(1);
-  // centerLaser.rangingTest(&centerValue, false);
-  // LCR[1] = int(centerValue);
-  Serial.print(" | Center Reading: ");
-  Serial.print(centerLaser.readRange());
+  centerLaser.rangingTest(&centerValue, false);
+  LCR[1] = centerValue.RangeMilliMeter;
 
   // Read the right sensor and save the data into rightValue
   TCA9548A(2);
-  // rightLaser.rangingTest(&rightValue, false);
-  // LCR[2] = int(rightValue);
-  Serial.print(" | Right Reading: ");
-  Serial.println(rightLaser.readRange());
+  rightLaser.rangingTest(&rightValue, false);
+  LCR[2] = rightValue.RangeMilliMeter;
+
+  // Serial.println("Left Reading: " + String(LCR[0]) + " | Center Reading: " + String(LCR[1]) + " | Right Reading: " + String(LCR[2]));
+}
+
+void readLeftSensor() {
+  // Read the left sensor and save the data into leftValue
+  TCA9548A(0);
+  leftLaser.rangingTest(&leftValue, false);
+  LCR[0] = leftValue.RangeMilliMeter;
+}
+
+void readCenterSensor() {
+  // Read the center sensor and save the data into centerValue
+  TCA9548A(1);
+  centerLaser.rangingTest(&centerValue, false);
+  LCR[1] = centerValue.RangeMilliMeter;
+}
+
+void readRightSensor() {
+  // Read the right sensor and save the data into rightValue
+  TCA9548A(2);
+  rightLaser.rangingTest(&rightValue, false);
+  LCR[2] = rightValue.RangeMilliMeter;
 }
 
 //------------------------
@@ -157,22 +176,31 @@ void swerveLeft() {
 
 void avoidance() {
 
-  //Update TOF sensor values
-  readLaserSensors();
-
   //Consideration distance - distance at which Fred will perform evasive maneuver
-  if (LCR[0] < 200 || LCR[1] < 200 || LCR[2] < 200) {
+  if (LCR[0] < consDist || LCR[1] < consDist || LCR[2] < consDist) {
     
     digitalWrite(24, LOW);
     digitalWrite(22, LOW);
     digitalWrite(23, HIGH);
     
     stop();
-    delay(2000);
+
+    for (int a = 1; a <= 5; a++) {
+      digitalWrite(24, LOW);
+      digitalWrite(22, LOW);
+      digitalWrite(23, LOW);
+       
+      delay(500);
+
+      digitalWrite(24, LOW);
+      digitalWrite(22, LOW);
+      digitalWrite(23, HIGH);
+
+      delay(500);
+    }
   
     //Consideration distance - distance at which Fred will perform evasive maneuver
-    while (LCR[0] < 200 || LCR[1] < 200 || LCR[2] < 200) {
-      // runSpeaker(2, 1000);
+    while (LCR[0] < consDist || LCR[1] < consDist || LCR[2] < consDist) {
       // Calculate differnce between left and right sensors
       int leftToRightSensor = LCR[0] - LCR[2];
       
@@ -193,8 +221,6 @@ void avoidance() {
         
       }
 
-      stop();
-      delay(2000);
       readLaserSensors();      
     }
   }

@@ -5,9 +5,6 @@
 // Create an object of the Adafruit_TCS34725 class for the colour sensor
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
-// // Create an array to store the RGB values read from the colour sensor
-// int RGB[3];
-
 /*
  * This method starts the colour sensor,
  * Assigns and initializes the pins used for the colour sensor,
@@ -26,7 +23,7 @@ void setupColourSensor() {
 
   TCA9548A(3);
   // Initialize the colour sensor with the I2C address 0x29
-  if (!tcs.begin(0x29)) {
+  while (!tcs.begin(0x29)) {
     tcs.disable();
     tcs.enable();
     Serial.println("Trying");
@@ -54,56 +51,5 @@ void readColourSensor(int* RGB) {
   RGB[2] = int(blue); 
 
   // Print the RGB values to the serial port
-  // Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]) + " ---|--- ");
+  Serial.println("Red Value: " + String(RGB[0]) + " Green Value: " + String(RGB[1]) + " Blue Value: " + String(RGB[2]));
 }
-
-// bool detectColour(String targetWard, bool inTransit) {
-
-//   readColourSensor();
-
-//   if (RGB[0] > 140) {
-//     if (targetWard == "home") {
-//       stop();
-//       inTransit = false;
-
-//     } else if (targetWard == "red") {
-//       targetWard = "home";
-//       stop();
-//       delay(1000);
-//       turnRight(255);
-//       delay(625);      
-//     }
-        
-//   } else if (RGB[2] > 100) {
-//     if (targetWard == "home") {
-//       stop();
-//       inTransit = false;
-
-//     } else if (targetWard == "blue") {
-//       targetWard = "home";
-//       stop();
-//       delay(1000);
-//       turnRight(255);
-//       delay(625);
-//     }
-  
-//   } 
-//   else if (RGB[0] > 100 && RGB[2] < 50) {
-//     if (targetWard == "home") {
-//       stop();
-//       inTransit = false;
-
-//     } else if (targetWard == "yellow") {
-//       targetWard = "home";
-//       stop();
-//       delay(1000);
-//       turnRight(255);
-//       delay(625);
-//     }
-  
-//   } else {
-//     inTransit = true;
-//     moveForward(255);
-
-//   }
-// }
