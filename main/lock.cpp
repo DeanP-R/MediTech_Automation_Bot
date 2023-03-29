@@ -48,6 +48,9 @@ void lockSetup() {
 
 String lock_op() {
 
+  digitalWrite(24, LOW);
+  digitalWrite(22, HIGH);
+  digitalWrite(23, LOW);  
   String targetWard = "";
 
   TCA9548A(4);
@@ -77,11 +80,11 @@ String lock_op() {
         lcd.setCursor(0, 0);
         lcd.print("Enter Destination");
         lcd.setCursor(0, 1);
-        lcd.print("1 = Maternity");
+        lcd.print("1 = Pharmacy");
         lcd.setCursor(0, 2);
         lcd.print("2 = Radiology");
         lcd.setCursor(0, 3);
-        lcd.print("3 = Pharmacy");  
+        lcd.print("3 = Maternity");  
 
         String destination = readKeypad();
 
@@ -92,7 +95,7 @@ String lock_op() {
           lcd.setCursor(0, 0);
           lcd.print("On Route to");
           lcd.setCursor(0, 1);
-          lcd.print("Maternity");
+          lcd.print("Pharmacy");
           isCarrying = true;
             
         } else if (destination == "2") {
@@ -112,7 +115,7 @@ String lock_op() {
           lcd.setCursor(0, 0);
           lcd.print("On Route to");
           lcd.setCursor(0, 1);
-          lcd.print("Pharmacy");
+          lcd.print("Maternity");
           isCarrying = true;
         }     
       } else {
@@ -123,6 +126,7 @@ String lock_op() {
     }  
   }
 
+  isCarrying = false;
   return targetWard;
 }
 

@@ -149,7 +149,7 @@ void updateDirection(int duration, bool inTransit) {
 
     case B010:// On the line, 
       // If the line is red: 
-      moveForward(200);
+      moveForward(180);
       break;
 
     case B011:// Line is kinda right,

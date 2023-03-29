@@ -36,12 +36,15 @@ void setup() {
   // setupColourSensor();  
   lock_op(targetWard);  
   // Serial.begin(9600);
-  // lockSetup(); 
+  pinMode(24, OUTPUT);// rED
+  pinMode(22, OUTPUT);// green
+  pinMode(23, OUTPUT);// yellow
+  
+  lockSetup(); 
   setupMotors();
-  // setupLasers();
+  setupLasers();
   setupColourSensor();  
-  // targetWard = lock_op();    #
-  // Serial.println("setup");
+  targetWard = lock_op();    
 }
 
 /*
@@ -49,68 +52,51 @@ void setup() {
 */
 
 void loop() {
-  moveForward(200);
-  scan();
-  updateDirection(2, inTransit);
-
-  // readColourSensor();
-  // readLaserSensors();
-
-  // moveForward(255);
   // scan();
-  // updateDirection(2, state);
+  // updateDirection(2, inTransit);
   
-  // avoidance();#
+  avoidance();
+
   // scan();
-  // updateDirection(2, state);
-  // Serial.println("loop");
-  
-  // detectColour(targetWard, inTransit);  
+  // updateDirection(2, inTransit);  
+
+  digitalWrite(24, HIGH);
+  digitalWrite(22, LOW);
+  digitalWrite(23, LOW);
+
   readColourSensor(RGB);
-
-  if (RGB[0] > 140) {
-    if (targetWard == "home") {
-      stop();
-      inTransit = false;
-
-    } else if (targetWard == "red") {
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);  
-      targetWard = "home";    
-    }
-        
-  } else if (RGB[2] > 100) {
-    if (targetWard == "home") {
-      stop();
-      inTransit = false;
-
-    } else if (targetWard == "blue") {
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);
-      targetWard = "home";
-    }
   
-  } else if (RGB[0] > 100 && RGB[2] < 50) {
-    if (targetWard == "home") {
-      stop();
-      inTransit = false;
+  // scan();
+  // updateDirection(2, inTransit);  
+  
 
-    } else if (targetWard == "yellow") {
-      stop();
-      delay(1000);
-      turnRight(255);
-      delay(625);
-      targetWard = "home";
-    }
+  if (RGB[0] > 140) {     //red
+    stop();
+    inTransit = false;
+    targetWard = lock_op();
+    turnRight(255);
+    delay(200);
+    moveForward(180);
+    delay(200);
+        
+  } else if (RGB[2] > 100 && targetWard == "blue") {  //blue
+    stop();
+    delay(1000);
+    turnRight(255);
+    delay(312);
+  
+  } else if (RGB[0] > 100 && RGB[2] < 50) { //yellow
+    stop();
+    delay(1000);
+    turnRight(255);
+    delay(200);
   
   } else {
     inTransit = true;
-    moveForward(200);
+    moveForward(180);
 
   }
-  
+
+  scan();
+  updateDirection(2, inTransit); 
 }

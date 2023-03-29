@@ -8,29 +8,13 @@ int music_wait = 1000;
 
 void speakerSetup() {
   // Init USB serial port for debugging
-  Serial.begin(9600);
+  // Serial.begin(9600);
   // Init serial port for DFPlayer Mini
   softwareSerial.begin(9600);
 
-  // Start communication with DFPlayer Mini
-  int numTries = 5;
-  while (numTries > 0) {
-    if (player.begin(softwareSerial)) {
-      Serial.println("OK");
-      // Set volume to maximum (0 to 30).
-      player.volume(30);
-      // Play the "0001.mp3" in the "mp3" folder on the SD card
-      break;
-    } else {
-      Serial.println("Connecting to DFPlayer Mini failed!");
-      numTries--;
-      delay(1000);
-    }
-  }
-  
-  if (numTries == 0) {
-    Serial.println("Failed to connect to DFPlayer Mini after 5 attempts.");
-  }
+  player.begin(softwareSerial);
+
+  player.begin(softwareSerial);
 }
 
 
