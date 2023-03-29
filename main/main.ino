@@ -30,21 +30,16 @@ int RGB[3];
 
 void setup() {
   Serial.begin(9600);
-  lockSetup(); 
-  // setupMotors();
-  // setupLasers();
-  // setupColourSensor();  
-  lock_op(targetWard);  
-  // Serial.begin(9600);
+
   pinMode(24, OUTPUT);// rED
   pinMode(22, OUTPUT);// green
   pinMode(23, OUTPUT);// yellow
   
-  lockSetup(); 
-  setupMotors();
+  // lockSetup(); 
+  // setupMotors();
   setupLasers();
-  setupColourSensor();  
-  targetWard = lock_op();    
+//   setupColourSensor();  
+//   targetWard = lock_op();    
 }
 
 /*
@@ -52,51 +47,44 @@ void setup() {
 */
 
 void loop() {
-  // scan();
-  // updateDirection(2, inTransit);
   
-  avoidance();
-
-  // scan();
-  // updateDirection(2, inTransit);  
-
-  digitalWrite(24, HIGH);
-  digitalWrite(22, LOW);
-  digitalWrite(23, LOW);
-
-  readColourSensor(RGB);
+  readLaserSensors();
   
-  // scan();
-  // updateDirection(2, inTransit);  
-  
+  // avoidance(); 
 
-  if (RGB[0] > 140) {     //red
-    stop();
-    inTransit = false;
-    targetWard = lock_op();
-    turnRight(255);
-    delay(200);
-    moveForward(180);
-    delay(200);
+  // digitalWrite(24, HIGH);
+  // digitalWrite(22, LOW);
+  // digitalWrite(23, LOW);
+
+  // readColourSensor(RGB);
+
+  // if (RGB[0] > 140) {     //red
+  //   stop();
+  //   inTransit = false;
+  //   targetWard = lock_op();
+  //   turnRight(255);
+  //   delay(200);
+  //   moveForward(180);
+  //   delay(200);
         
-  } else if (RGB[2] > 100 && targetWard == "blue") {  //blue
-    stop();
-    delay(1000);
-    turnRight(255);
-    delay(312);
+  // } else if (RGB[2] > 100 && targetWard == "blue") {  //blue
+  //   stop();
+  //   delay(1000);
+  //   turnRight(255);
+  //   delay(312);
   
-  } else if (RGB[0] > 100 && RGB[2] < 50) { //yellow
-    stop();
-    delay(1000);
-    turnRight(255);
-    delay(200);
+  // } else if (RGB[0] > 100 && RGB[2] < 50) { //yellow
+  //   stop();
+  //   delay(1000);
+  //   turnRight(255);
+  //   delay(200);
   
-  } else {
-    inTransit = true;
-    moveForward(180);
+  // } else {
+  //   inTransit = true;
+  //   moveForward(180);
 
-  }
+  // }
 
-  scan();
-  updateDirection(2, inTransit); 
+  // scan();
+  // updateDirection(2, inTransit); 
 }
