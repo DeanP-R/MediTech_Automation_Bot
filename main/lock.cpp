@@ -19,7 +19,16 @@ Servo myServo;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
-
+/**
+  \brief
+    This function initializes the TCA9548A multiplexer to use channel 4, the serial port, 
+    and the LCD screen. It sets the RFID authorization flag to false and the servo position to 0 degrees. 
+    It then initializes the LCD screen and displays a message to prompt the user to scan an RFID tag.
+  \param
+    None.
+  \return
+    None.
+*/
 void lockSetup() {
 
   // Serial.begin(9600);
@@ -45,7 +54,14 @@ void lockSetup() {
   myServo.attach(11);
   myServo.write(0);
 }
-
+/**
+    \brief
+      
+    \param
+      None.
+    \return
+      A string containing the four digits entered by the user.
+*/
 String lock_op() {
 
   digitalWrite(24, LOW);
@@ -129,7 +145,15 @@ String lock_op() {
   isCarrying = false;
   return targetWard;
 }
-
+/**
+    \brief
+      This function reads the input from a 4x4 keypad and returns it as a string. 
+      It waits for the user to enter four digits and prints the entered digits to the serial port.
+    \param
+      None.
+    \return
+      A string containing the four digits entered by the user.
+*/
 String readKeypad() {
   String input = "";
   while (input.length() < 1) {

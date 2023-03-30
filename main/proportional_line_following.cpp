@@ -21,7 +21,15 @@ int irSensors = B000;
 
 // Binary representation of the last recorded sensor reading. - Reece
 int lastIrReading;
-
+/**
+  \brief
+    This function initializes the pins used to control the stepper motor driver to output mode, 
+    and sets their initial states to LOW, which results in the motors coasting.
+  \param
+    None.
+  \return
+    None.
+*/
 void setupMotors() {  
   // Initialize the stepper driver control pins to output drive mode. - Keith's Line following code
   pinMode(MOT_A1_PIN, OUTPUT);
@@ -36,9 +44,17 @@ void setupMotors() {
   digitalWrite(MOT_B2_PIN, LOW);
 }
 
-/*
- * This method makes both the left and right tracks move forward at a specified speed. - Reece
- */
+/**
+  \brief
+    This function moves the robot forward by setting the control pins for the left and right motors. 
+    The left motor rotates clockwise, while the right motor rotates counterclockwise, 
+    resulting in forward motion. The speed of both motors is controlled by the pwmSpeed parameter.
+  \param
+    pwmSpeed: 
+      An integer value between 0 and 255 that sets the speed of both motors.
+  \return
+    None.
+*/
 void moveForward(int pwmSpeed) {
   // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
@@ -61,9 +77,16 @@ void antiForward(int pwmSpeed) {
   analogWrite(EN2_PIN, pwmSpeed);
 }
 
-/*
- * This method reverses the left tracks so that the robot moves to the left at a specified speed. - Reece
- */
+/**
+  \brief
+    This function turns the robot left by setting the control pins for the left and right motors. 
+    The left motor rotates counterclockwise, while the right motor rotates counterclockwise, 
+    resulting in a left turn. The speed of both motors is controlled by the pwmSpeed parameter.
+  \param
+      An integer value between 0 and 255 that sets the speed of both motors.
+  \return
+    None.
+*/
 void turnLeft(int pwmSpeed) {
   // Left motor,
   digitalWrite(MOT_A1_PIN, HIGH);
@@ -75,9 +98,16 @@ void turnLeft(int pwmSpeed) {
   analogWrite(EN2_PIN, pwmSpeed);
 }
 
-/*
- * This method reverses the right tracks so that the robot moves to the right at a specified speed. - Reece
- */
+/**
+  \brief
+    This function turns the robot right by setting the control pins for the left and right motors. 
+    The left motor rotates clockwise, while the right motor rotates counterclockwise, 
+    resulting in a right turn. The speed of both motors is controlled by the pwmSpeed parameter.    
+  \param
+      An integer value between 0 and 255 that sets the speed of both motors.
+  \return
+    None.
+*/
 void turnRight(int pwmSpeed) {
   // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
@@ -88,7 +118,15 @@ void turnRight(int pwmSpeed) {
   digitalWrite(MOT_B2_PIN, HIGH);
   analogWrite(EN2_PIN, pwmSpeed);
 }
-
+/**
+  \brief
+    This function stops the robot by setting the control pins for the left and right motors to LOW, 
+    and the PWM output to 0, which stops the motors.
+  \param
+    None.
+  \return
+    None.
+*/
 void stop() {
   // Left motor,
   digitalWrite(MOT_A1_PIN, LOW);
@@ -100,9 +138,15 @@ void stop() {
   analogWrite(EN2_PIN, 0);
 }
 
-/*
- * This method reads all the IR sensors and converts them into a binary representation of all 3 readings. - Keith's Line following code
- */
+/**
+  \brief
+    This function scans the IR sensors and converts the analog sensor readings to digital values based on a threshold value. 
+    The digital sensor values are then combined to form a single byte representing the sensor readings.
+  \param
+    None.
+  \return
+    None.
+*/
 void scan() {
   // Initialize the sensors
   irSensors = B000;
@@ -129,10 +173,17 @@ void scan() {
   // Serial.println(analogRead(irPins[2]));
 }
 
-/*
- * This method reads the binary sensor reading and depending on the values within it, 
- * updates the direction the motors are turning for a specified period of time. - Reece
- */
+/**
+  \brief
+    This function updates the direction of movement based on the current state of the IR sensors. 
+    If the state is "inTransit", the function checks the current sensor readings and turns left or right 
+    based on the last recorded sensor reading. The function also updates the last recorded sensor reading 
+    if the current reading indicates that the line is present.
+  \param
+    duration: an integer representing the duration of the movement in milliseconds
+  \return
+    None.
+*/
 void updateDirection(int duration) {
   
   switch (irSensors) {

@@ -5,7 +5,16 @@ SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
 DFRobotDFPlayerMini player;
 
 int music_wait = 1000;
-
+/**
+    \brief 
+      This function initializes the USB serial port for debugging and the serial port for the DFPlayer Mini. 
+      It also starts communication with the DFPlayer Mini and sets its volume to the maximum level. 
+      If the communication is established successfully, it plays the "0001.mp3" file located in the "mp3" folder on the SD card.
+    \param
+      None
+    \return
+      None
+*/
 void speakerSetup() {
   // Init USB serial port for debugging
   // Serial.begin(9600);
@@ -17,7 +26,14 @@ void speakerSetup() {
   player.begin(softwareSerial);
 }
 
-
+/**
+    \brief
+      This function plays an MP3 audio file located in folder number 2 on the DFPlayer Mini, and then waits for 2 seconds before exiting.
+    \param
+      None
+    \return
+      None
+*/
 void runSpeaker(int command, int timing) {   
   player.playMp3Folder(command);
   delay(timing);

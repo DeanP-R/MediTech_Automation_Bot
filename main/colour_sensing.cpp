@@ -5,11 +5,18 @@
 // Create an object of the Adafruit_TCS34725 class for the colour sensor
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
-/*
- * This method starts the colour sensor,
- * Assigns and initializes the pins used for the colour sensor,
- * and sets up the pins used to control an LED. 
- */
+/**
+  \brief
+    This function configures the TCA9548A multiplexer to use channel 4, 
+    initializes the colour sensor with the I2C address 0x29, 
+    and sets the pins to drive an LED. On ESP32 boards, 
+    the LEDC interface is used to control the pins, while on other boards, 
+    the pin modes are set to OUTPUT.
+  \param
+    None.
+  \return
+    None.
+*/
 void setupColourSensor() {
   // Configure the TCA9548A multiplexer to use the fourth channel
   TCA9548A(3);
@@ -31,10 +38,18 @@ void setupColourSensor() {
   }
 }
 
-/*
- * This method reads the RGB values from the colour sensor,
- * and stores them in the RGB array.
- */
+/**
+  \brief
+    This function reads the RGB values from the colour sensor, 
+    stores them in the RGB array, and prints them to the serial port. 
+     It selects channel 4 on the TCA9548A multiplexer, turns on the LED, disables the colour sensor interrupt, 
+    and reads the RGB values from the colour sensor. Then, it turns off the LED, enables the colour sensor interrupt, 
+    converts the RGB values to integers, and stores them in the RGB array.
+  \param
+    None.
+  \return
+    None.
+*/
 void readColourSensor(int* RGB) {
   float red, green, blue;
   // Select channel 4 on the TCA9548A multiplexer
