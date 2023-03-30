@@ -49,60 +49,55 @@ void setup() {
 
 void loop() {
   
-  // // Task 1
-  // digitalWrite(24, HIGH);
-  // digitalWrite(22, LOW);
-  // digitalWrite(23, LOW);
+  // Task 1
+  digitalWrite(24, HIGH);
+  digitalWrite(22, LOW);
+  digitalWrite(23, LOW);
 
-  // // Task 2
-  // readLeftSensor();
-  // moveForward(200);
-  // scan();
-  // updateDirection(2);
+  // Task 2
+  readLeftSensor();
+  moveForward(200);
+  scan();
+  updateDirection(2);
 
-  // // Task 3
-  // readCenterSensor();
-  // moveForward(200);
-  // scan();
-  // updateDirection(2);
+  // Task 3
+  readCenterSensor();
+  moveForward(200);
+  scan();
+  updateDirection(2);
   
-  // // Task 4
-  // readRightSensor();
-  // moveForward(200);
-  // scan();
-  // updateDirection(2);
+  // Task 4
+  readRightSensor();
+  moveForward(200);
+  scan();
+  updateDirection(2);
   
-  // // Task 5
-  // avoidance(); 
-  // moveForward(200);
-  // scan();
-  // updateDirection(2);
+  // Task 5
+  avoidance(); 
+  moveForward(200);
+  scan();
+  updateDirection(2);
 
   // Task 6
   readColourSensor(RGB);
 
-  // while (RGB[0] > 140) {     //red
-  //   moveForward(200);
-  //   delay(100);
-  //   stop();
-  //   targetWard = lock_op();
-  //   readColourSensor(RGB);    
-  // }
+  if (RGB[0] > 140) {     //red
+    digitalWrite(23, HIGH);
+    stop();
+    targetWard = lock_op();
+    readColourSensor(RGB);
+    digitalWrite(24, LOW);
+  }
   
-  // if (RGB[2] > 100 && targetWard == "blue") {  //blue
-  //   stop();
-  //   delay(1000);
-  //   turnRight(255);
-  //   delay(312);
+  if (RGB[2] > 100 && targetWard == "blue") {  //blue
+    stop();
+    delay(1000);
+    turnRight(255);
+    delay(312);
   
-  // } else if (RGB[0] > 100 && RGB[2] < 50 && targetWard == "yellow") { //yellow
-  //   stop();
-  //   delay(1000);
-  //   turnRight(255);
-  //   delay(200);
+  }
   
-  // }
-  // moveForward(200);
-  // scan();
-  // updateDirection(2); 
+  moveForward(200);
+  scan();
+  updateDirection(2); 
 }

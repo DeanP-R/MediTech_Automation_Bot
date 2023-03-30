@@ -147,8 +147,8 @@ void swerveRight() {
   stop();
   delay(1000);
 
-  moveForward(200);
-  delay(1000);
+  // moveForward(200);
+  // delay(1000);
 }
 
 void swerveLeft() {
@@ -170,8 +170,8 @@ void swerveLeft() {
   stop();
   delay(1000);
 
-  moveForward(200);
-  delay(1000);
+  // moveForward(200);
+  // delay(1000);
 }
 
 void avoidance() {
@@ -198,7 +198,7 @@ void avoidance() {
 
       delay(500);
     }
-  
+    readLaserSensors();  
     //Consideration distance - distance at which Fred will perform evasive maneuver
     while (LCR[0] < consDist || LCR[1] < consDist || LCR[2] < consDist) {
       // Calculate differnce between left and right sensors

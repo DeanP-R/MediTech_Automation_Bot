@@ -130,11 +130,11 @@ void updateDirection(int duration) {
         
     // If the last recorded reading indicated that the line was on the left: turn left, 
     if (lastIrReading == B110 || lastIrReading == B100) {
-      turnLeft(255);
+      moveForward(200);
       
     // If the last recorded reading indicated that the line was on the right: turn right,  
     } else if (lastIrReading == B011 || lastIrReading == B001) {
-      turnRight(255);
+      moveForward(200);
     }
     break;
 

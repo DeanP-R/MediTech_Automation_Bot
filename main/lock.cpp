@@ -109,7 +109,7 @@ String lock_op() {
           isCarrying = true;
                   
         } else if (destination == "3") {
-          targetWard = "yellow";
+          targetWard = "blue";
           myServo.write(0);
           lcd.clear();
           lcd.setCursor(0, 0);
