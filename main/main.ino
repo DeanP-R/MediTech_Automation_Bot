@@ -96,6 +96,10 @@ void loop() {
     delay(312);
   
   }
+  if (RGB[2]>100 && targetWard != "blue"){
+    moveForward(200);
+    delay(200);
+  }
   
   moveForward(200);
   scan();

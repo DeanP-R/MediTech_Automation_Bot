@@ -50,6 +50,17 @@ void moveForward(int pwmSpeed) {
   analogWrite(EN2_PIN, pwmSpeed);
 }
 
+void antiForward(int pwmSpeed) {
+  // Left motor,
+  digitalWrite(MOT_A1_PIN, HIGH);
+  digitalWrite(MOT_A2_PIN, LOW);
+  analogWrite(EN1_PIN, pwmSpeed);
+  // Right motor, 
+  digitalWrite(MOT_B1_PIN, LOW);
+  digitalWrite(MOT_B2_PIN, HIGH);
+  analogWrite(EN2_PIN, pwmSpeed);
+}
+
 /*
  * This method reverses the left tracks so that the robot moves to the left at a specified speed. - Reece
  */

@@ -125,50 +125,54 @@ void readRightSensor() {
 
 // Method to swerve right to avoid an object
 void swerveRight() {
+  antiForward(200);
+  delay(200);
+  
   // Turn the robot right at maximum speed
   turnRight(255);
-  // Delay for 625ms
   delay(625);
 
   // Stop the robot
   stop();
-  // Delay for 1 second
   delay(1000);
 
-  moveForward(200);
-  delay(1000);
+  // moveForward(200);
+  // delay(1000);
 
-  stop();
-  delay(1000);
+  // stop();
+  // delay(1000);
 
-  turnLeft(255);
-  delay(700);
+  // turnLeft(255);
+  // delay(700);
 
-  stop();
-  delay(1000);
+  // stop();
+  // delay(1000);
 
   // moveForward(200);
   // delay(1000);
 }
 
 void swerveLeft() {
+  antiForward(200);
+  delay(200);
+  
   turnLeft(255);
   delay(625);
 
   stop();
   delay(1000);
 
-  moveForward(200);
-  delay(1000);
+  // moveForward(200);
+  // delay(1000);
 
-  stop();
-  delay(1000);
+  // stop();
+  // delay(1000);
 
-  turnRight(255);
-  delay(700);
+  // turnRight(255);
+  // delay(700);
 
-  stop();
-  delay(1000);
+  // stop();
+  // delay(1000);
 
   // moveForward(200);
   // delay(1000);

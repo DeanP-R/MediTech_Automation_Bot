@@ -13,6 +13,7 @@
 
 void setupMotors();
 void moveForward(int pwmSpeed);
+void antiForward(int pwmSpeed);
 void turnRight(int pwmSpeed);
 void turnLeft(int pwmSpeed);
 void stop();
