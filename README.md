@@ -32,5 +32,14 @@
 
 ## How to use
 
-  _To use this code, download the repository and upload the System_Project_Arduino.ino file to an Arduino board. Make sure to include all necessary libraries, such as the Adafruit RGB Sensor library, the Keypad library, and the MFRC522 library.
+  _To use this code, download the repository and upload the System_Project_Arduino.ino file to an Arduino Mega board. Make sure to include all necessary libraries.
   The system is designed to follow a line until it detects an obstacle, at which point it will use object avoidance to avoid the obstacle. It can also detect the colour of an object, lock and unlock a cabinet using an RFID tag, and provide audio feedback._
+  
+## Required Libraries
+
+- <SPI.h>
+- <MFRC522.h>
+- <Keypad.h>
+- <Servo.h>
+- <LiquidCrystal_I2C.h>
+- <Wire.h>
