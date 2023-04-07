@@ -1,9 +1,9 @@
-#System Project Arduino
-  This repository contains the code for an Arduino-based system project that incorporates object avoidance, line following, RFID tag detection, colour sensing, and audio feedback. The code is written in C++ and consists of multiple files, each containing classes and methods specific to the system's functionality.
+#                                                            System Project Arduino
+  <>  This repository contains the code for an Arduino-based system project that incorporates object avoidance, line following, RFID tag detection, colour         sensing, and audio feedback. The code is written in C++ and consists of multiple files, each containing classes and methods specific to the system's         functionality.
 
-*File structure
+## File structure
 
-    -**System_Project_Arduino.ino: 
+    *System_Project_Arduino.ino*  
       The main file that runs the system.
     -colour_sensing.cpp: 
       Contains the implementation of the ColourSensing class, which is responsible for detecting the colour of an object using an RGB colour sensor.
