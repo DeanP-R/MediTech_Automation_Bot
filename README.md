@@ -1,4 +1,4 @@
-#                                                            System Project Arduino
+#                                                            MediTech Automation Control Program
   _This repository contains the code for an Arduino-based system project that incorporates object avoidance, line following, RFID tag detection, colour         sensing, and audio feedback. The code is written in C++ and consists of multiple files, each containing classes and methods specific to the system's         functionality._
 
 ## File structure
