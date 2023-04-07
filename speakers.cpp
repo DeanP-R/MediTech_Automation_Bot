@@ -16,25 +16,21 @@ int music_wait = 1000;
       None
 */
 void speakerSetup() {
-  // Init USB serial port for debugging
-  // Serial.begin(9600);
   // Init serial port for DFPlayer Mini
   softwareSerial.begin(9600);
-
-  player.begin(softwareSerial);
-
   player.begin(softwareSerial);
 }
 
 /**
-    \brief
-      This function plays an MP3 audio file located in folder number 2 on the DFPlayer Mini, and then waits for 2 seconds before exiting.
-    \param
-      None
-    \return
-      None
+  \brief
+    This function plays an MP3 audio file located in the specified folder on the DFPlayer Mini, and then waits for the specified duration before exiting.
+  \param
+    command: An integer that represents the folder number and audio file index to be played.
+    timing: An integer that represents the duration to wait after playing the audio file, in milliseconds.
+  \return
+    None  
 */
-void runSpeaker(int command, int timing) {   
+void runSpeaker(int command, int timing) {
   player.playMp3Folder(command);
   delay(timing);
   // player.playMp3Folder(1);  //Moving

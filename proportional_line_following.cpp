@@ -21,6 +21,7 @@ int irSensors = B000;
 
 // Binary representation of the last recorded sensor reading. - Reece
 int lastIrReading;
+
 /**
   \brief
     This function initializes the pins used to control the stepper motor driver to output mode, 

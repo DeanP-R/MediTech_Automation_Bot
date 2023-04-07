@@ -1,16 +1,21 @@
 /****************************************************************************************
   File Name       : MediTech Automation Control                                         *
-  Version         : 0.3.1                                                               *
+  Version         : 0.4.0                                                               *
   Description     : Main code for B39VS - System Project                                *
   Author          : Dean Rowlett & Reece Alexander                                      *
   Target          : Arduino Mega                                                        *
   Compiler        : avr-g++                                                             *
-  IDE             : Arduino 2.0.3                                                       *
+  IDE             : Arduino 2.0.4                                                       *
   Programmer      : Arduino ISP (In-System Programmer)                                  *
-  Last Updated    : 28th March 2023                                                     *
+  Last Updated    : 7th April 2023                                                      *
 ****************************************************************************************/
-
-//test these nuts ya bam
+/*
+NB:
+  @ pwm 255: 
+  1250 delay = 180 degree turn
+  625 delay = 90 degree turn
+  313 delay = 45 degree turn
+*/
 
 #include "speakers.h"
 #include "proportional_line_following.h"
@@ -26,82 +31,101 @@ String targetWard = "home";
 // Create an array to store the RGB values read from the colour sensor
 int RGB[3];
 
+/**
+
+  \brief This function sets up the necessary pins and initializes the required modules on startup.
+
+*/
 void setup() {
   Serial.begin(9600);
+  // set pin 22, 23 & 24 as an output for red LED
+  pinMode(24, OUTPUT);
+  pinMode(22, OUTPUT);
+  pinMode(23, OUTPUT);
 
-  pinMode(24, OUTPUT);// rED
-  pinMode(22, OUTPUT);// green
-  pinMode(23, OUTPUT);// yellow
-  
-  lockSetup(); 
+  // call lock setup function to initialize the RFID lock system
+  lockSetup();
+
+  // call setup motors function to initialize the motors
   setupMotors();
+
+  // call setup lasers function to initialize the laser sensors
   setupLasers();
-  setupColourSensor();  
-  targetWard = lock_op();    
+  setupColourSensor();
+
+  // call lock operation function to unlock the storage, and return the target ward
+  targetWard = lock_op();
 }
 
-/*
-@ pwm 255: 
-1250 delay = 180 degree turn
-625 delay = 90 degree turn
-313 delay = 45 degree turn
-*/
+/**
 
+    @brief The main loop of the robot's operation
+    The loop consists of several tasks:
+      <>Task 1: Turn on the red LED to indicate operation
+      <>Task 2-4: Read the left, center and right IR sensors, move forward and scan for obstacles, and update the robot's direction based on the sensor readings
+      <>Task 5: Perform an avoidance maneuver if an obstacle is detected by any of the sensors, move forward and scan for obstacles, and update the direction
+      <>Task 6: Read the color sensor and perform the appropriate action based on the detected color: if red, stop and lock the storage; if blue and the target ward is "blue", 
+        turn right; if blue and the target ward is not "blue", move forward; move forward and scan for obstacles, and update the direction
+    */
 void loop() {
-  
-  // Task 1
+
+  // Task 1: Turn on the red LED to indicate operation
   digitalWrite(24, HIGH);
   digitalWrite(22, LOW);
   digitalWrite(23, LOW);
 
-  // Task 2
+  // Task 2: Read the left sensor, move forward, scan for obstacles, and update the direction
   readLeftSensor();
   moveForward(200);
   scan();
   updateDirection(2);
 
-  // Task 3
+  // Task 3: Read the center sensor, move forward, scan for obstacles, and update the direction
   readCenterSensor();
   moveForward(200);
   scan();
   updateDirection(2);
-  
-  // Task 4
+
+  // Task 4: Read the right sensor, move forward, scan for obstacles, and update the direction
   readRightSensor();
   moveForward(200);
   scan();
   updateDirection(2);
-  
-  // Task 5
-  avoidance(); 
+
+  // Task 5: Perform an avoidance maneuver if an obstacle is detected by any of the sensors, move forward, scan for obstacles, and update the direction
+  avoidance();
   moveForward(200);
   scan();
   updateDirection(2);
 
-  // Task 6
+  // Task 6: Read the color sensor and perform the appropriate action based on the detected color
   readColourSensor(RGB);
 
-  if (RGB[0] > 140) {     //red
+  // If the detected color is red, stop and lock the storage
+  if (RGB[0] > 140) {
     digitalWrite(23, HIGH);
     stop();
     targetWard = lock_op();
     readColourSensor(RGB);
     digitalWrite(24, LOW);
   }
-  
-  if (RGB[2] > 100 && targetWard == "blue") {  //blue
+
+  // If the detected color is blue and the target ward is "blue", turn right
+  if (RGB[2] > 100 && targetWard == "blue") {
     stop();
     delay(1000);
     turnRight(255);
     delay(312);
-  
   }
-  if (RGB[2]>100 && targetWard != "blue"){
+
+  // If the detected color is blue and the target ward is not "blue", move forward
+  if (RGB[2] > 100 && targetWard != "blue") {
     moveForward(200);
     delay(200);
   }
-  
+
+  // Move forward, scan for obstacles, and update the direction
   moveForward(200);
   scan();
-  updateDirection(2); 
+  updateDirection(2);
 }
