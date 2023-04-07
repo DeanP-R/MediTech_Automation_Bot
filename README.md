@@ -43,3 +43,8 @@
 - <Servo.h>
 - <LiquidCrystal_I2C.h>
 - <Wire.h>
+- <SoftwareSerial.h>
+- <DFRobotDFPlayerMini.h>
+- <Arduino.h>
+- <Adafruit_VL53L0X.h>
+- <Adafruit_TCS34725.h>
