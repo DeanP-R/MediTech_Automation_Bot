@@ -33,7 +33,7 @@
 ## How to use
 
   _To use this code, download the repository and upload the System_Project_Arduino.ino file to an Arduino Mega board. Make sure to include all necessary libraries.
-  The system is designed to follow a line until it detects an obstacle, at which point it will use object avoidance to avoid the obstacle. It can also detect the colour of an object, lock and unlock a cabinet using an RFID tag, and provide audio feedback._
+  The system is designed to follow a line until it detects an obstacle, at which point it will use object avoidance to avoid the obstacle. It can also detect the colour of a line, lock and unlock a cabinet using an RFID tag, and provide audio feedback._
   
 ## Required Libraries
 
